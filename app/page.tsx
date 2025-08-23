@@ -1055,7 +1055,7 @@ export default function HomePage() {
         }
 
         .read-time, .views {
-          color: var(--accent-yellow);
+          color: var(--accent-yellow, #FFC107);
           font-weight: 500;
         }
 
@@ -1132,7 +1132,7 @@ export default function HomePage() {
         }
 
         .rating {
-          color: var(--accent-yellow);
+          color: var(--accent-yellow, #FFC107);
           font-size: 0.85rem;
         }
 
@@ -1166,7 +1166,7 @@ export default function HomePage() {
 
         .tip-type {
           background: linear-gradient(135deg, #333, #444);
-          color: var(--accent-yellow);
+          color: var(--accent-yellow, #FFC107);
           padding: 4px 10px;
           border-radius: 10px;
           font-size: 0.75rem;
@@ -1204,7 +1204,7 @@ export default function HomePage() {
         }
 
         .podcast-duration, .podcast-views {
-          color: var(--accent-yellow);
+          color: var(--accent-yellow, #FFC107);
           font-weight: 500;
         }
 
@@ -1293,7 +1293,7 @@ export default function HomePage() {
         }
 
         .text-accent-yellow {
-          color: var(--accent-yellow);
+          color: var(--accent-yellow, #FFC107);
         }
 
         .text-accent-yellow:hover {
