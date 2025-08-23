@@ -830,7 +830,10 @@ export default function HomePage() {
         }
         .product-image-wrapper {
           width: 100%; height: 100%; position: relative;
-          border: 2px solid var(--accent-yellow); border-radius: 20px;
+          /* Added fallback color for yellow border to fix production visibility */
+          border: 2px solid #FFC107;
+          border: 2px solid var(--accent-yellow, #FFC107);
+          border-radius: 20px;
           overflow: hidden;
           transform-style: preserve-3d;
         }
@@ -840,9 +843,13 @@ export default function HomePage() {
           backface-visibility: hidden;
           transition: opacity 0.6s ease;
           opacity: 0;
-          /* Added yellow border to product images */
-          border: 3px solid var(--accent-yellow);
+          /* Added fallback color for yellow border to fix production visibility */
+          border: 3px solid #FFC107;
+          border: 3px solid var(--accent-yellow, #FFC107);
           border-radius: 15px;
+        }
+        .product-image[data-id="1"] {
+          opacity: 1;
         }
         .product-image.active {
           opacity: 1;
