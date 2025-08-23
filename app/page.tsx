@@ -857,8 +857,12 @@ export default function HomePage() {
         .product-detail-item h3 { font-size: 3rem; color: var(--text-white); }
         .product-detail-item p { font-size: 1.1rem; color: #ccc; margin: 20px 0; }
         .product-tag {
-          display: inline-block; padding: 5px 15px; background-color: var(--primary-red);
+          display: inline-block; padding: 5px 15px; 
+          /* Added fallback color for production deployment */
+          background-color: #e52421; /* Fallback red color */
+          background-color: var(--primary-red, #e52421); /* CSS custom property with fallback */
           border-radius: 20px; font-size: 0.9rem; margin-bottom: 15px;
+          color: white; /* Ensure text is visible on red background */
         }
         
         /* --- Interactive Switcher --- */
