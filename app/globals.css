@@ -151,3 +151,20 @@
     font-weight: 900;
   }
 }
+/* --- BẮT ĐẦU CODE THÊM FONT --- */
+
+/* Áp dụng font chữ từ layout.tsx */
+body {
+  font-family: var(--font-body), sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), serif;
+}
+
+/* --- KẾT THÚC CODE THÊM FONT --- */

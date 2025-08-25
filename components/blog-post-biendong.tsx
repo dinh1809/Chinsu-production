@@ -50,7 +50,7 @@ export function BlogPost() {
           <div className="my-8">
             {/* --- HÌNH ẢNH 1 ĐÃ CẬP NHẬT --- */}
             <Image
-              src="/rot-nuoc-mam.jpg"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/unnamed%20%281%29-Ewqz9TPhFF0lUToZyZgGKCtn91VoaP.png"
               alt="Rót nước mắm từ thùng gỗ ra bát"
               width={800}
               height={500}
@@ -86,7 +86,7 @@ export function BlogPost() {
           <div className="my-8">
             {/* --- HÌNH ẢNH 2 ĐÃ CẬP NHẬT --- */}
             <Image
-              src="/chuyen-gia-kiem-tra.jpg"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/unnamed-7H2YqQAyEFQfcgTFTTSj2l6C45Qbhl.png"
               alt="Chuyên gia kiểm tra chất lượng nước mắm trong nhà thùng"
               width={800}
               height={500}
@@ -122,7 +122,7 @@ export function BlogPost() {
           <div className="my-8">
             {/* --- HÌNH ẢNH 3 ĐÃ CẬP NHẬT --- */}
             <Image
-              src="/san-pham-chinsu.jpg"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/unnamed%20%282%29-e13Yc5glQ4WUXjNhe94C2vYtTX6tyc.png"
               alt="Các chai sản phẩm nước mắm Chin-su"
               width={800}
               height={500}
