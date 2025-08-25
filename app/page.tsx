@@ -463,7 +463,7 @@ export default function HomePage() {
                     <span className="publish-date">20/01/2025</span>
                   </div>
                   <a
-                    href="https://docs.google.com/document/d/1ygajjd7aLztPISLEhhJbfZJnzu5KC6Rw_qc0EDv9gME/edit?usp=sharing"
+                    href="https://chinsu.vercel.app/blog/bien_dong"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="read-more-btn"
