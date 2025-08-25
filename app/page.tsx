@@ -424,7 +424,10 @@ export default function HomePage() {
                 <div className="card-content">
                   <h3>Khám phá Umami Việt Nam</h3>
                   <p>
-                    Umami là một trong năm vị cơ bản mà con người có thể cảm nhận được bên cạnh ngọt, mặn, chua và đắng. Trong tiếng Nhật, "umai" có nghĩa là "ngon", "mi" là "vị", còn trong tiếng Việt, có thể hiểu vị umami là vị ngon hài hoà và cân bằng mặn ngọt. Hãy cùng Chin-su tìm hiểu sâu hơn về hương vị kỳ diệu này nhé.
+                    Umami là một trong năm vị cơ bản mà con người có thể cảm nhận được bên cạnh ngọt, mặn, chua và đắng.
+                    Trong tiếng Nhật, "umai" có nghĩa là "ngon", "mi" là "vị", còn trong tiếng Việt, có thể hiểu vị
+                    umami là vị ngon hài hoà và cân bằng mặn ngọt. Hãy cùng Chin-su tìm hiểu sâu hơn về hương vị kỳ diệu
+                    này nhé.
                   </p>
                   <div className="card-meta">
                     <span className="read-time">6 phút đọc</span>
@@ -454,7 +457,10 @@ export default function HomePage() {
                 <div className="card-content">
                   <h3>Nước Mắm - Linh Hồn Ẩm Thực Việt</h3>
                   <p>
-                    Trong mỗi bữa cơm của gia đình người Việt, nước mắm luôn hiện diện như một loại gia vị làm trọn vẹn các món ăn; và sự ra đời của nước mắm Chin-su Cá Cơm Biển Đông chính là một bước đột phá mang đến hương vị đậm đà và chất lượng tuyệt đối. Hãy khám phá ngay quy trình tỉ mẩn để sản xuất nước mắm ngon cùng Chin-su nhé!
+                    Trong mỗi bữa cơm của gia đình người Việt, nước mắm luôn hiện diện như một loại gia vị làm trọn vẹn
+                    các món ăn; và sự ra đời của nước mắm Chin-su Cá Cơm Biển Đông chính là một bước đột phá mang đến
+                    hương vị đậm đà và chất lượng tuyệt đối. Hãy khám phá ngay quy trình tỉ mẩn để sản xuất nước mắm
+                    ngon cùng Chin-su nhé!
                   </p>
                   <div className="card-meta">
                     <span className="read-time">8 phút đọc</span>
@@ -964,7 +970,7 @@ export default function HomePage() {
 
         .resource-item:hover {
           transform: translateY(-10px) scale(1.02);
-          border-color: var(--accent-yellow);
+          border-color: var(--accent-yellow, #FFC107);
           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 193, 7, 0.2);
         }
 
