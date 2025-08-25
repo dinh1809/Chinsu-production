@@ -432,7 +432,7 @@ export default function HomePage() {
                     <span className="publish-date">15/01/2025</span>
                   </div>
                   <a
-                    href="https://docs.google.com/document/d/1IPE7TChmPZWD9rCi9T2Hzc1gyOW551X9wouKsTiq7Vg/edit?usp=sharing"
+                    href="https://chinsu.vercel.app/blog/kham-pha-umami"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="read-more-btn"

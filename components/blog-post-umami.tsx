@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Calendar, User } from "lucide-react"
+import Link from "next/link"
 
 export function BlogPost() {
   return (
@@ -8,10 +9,14 @@ export function BlogPost() {
       {/* Header with back button */}
       <header className="border-b border-gray-100 bg-white sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-6 py-4">
-          <Button variant="ghost" className="text-black hover:text-primary hover:bg-gray-50">
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Quay lại Blog
-          </Button>
+          {/* --- SỬA LỖI Ở ĐÂY --- */}
+          {/* Dùng <Link href="/"> để quay về trang chủ của chính website này */}
+          <Link href="/">
+            <Button variant="ghost" className="text-black hover:text-primary hover:bg-gray-50">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Quay lại Blog
+            </Button>
+          </Link>
         </div>
       </header>
 
@@ -35,8 +40,6 @@ export function BlogPost() {
           </div>
         </header>
 
-        {/* Featured image */}
-
         {/* Article content */}
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-gray-700 leading-relaxed mb-8">
@@ -55,7 +58,7 @@ export function BlogPost() {
 
           <div className="bg-gray-50 p-8 rounded-lg my-8">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pexels-horizon-content-2100060-3763816.jpg-NP0lzSiWefEH20IRENijcF1LHKg2t6.jpeg"
+              src="/nguyen-lieu-umami.jpg" // Đề xuất: Thay bằng đường dẫn ảnh trong thư mục public của bạn
               alt="Các nguyên liệu giàu Umami"
               width={800}
               height={400}
@@ -113,7 +116,7 @@ export function BlogPost() {
 
           <div className="bg-gray-50 p-8 rounded-lg my-8">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/banner-quy-trinh-desktop-w3Gqbgbr1QNOEgtfVCCZQFylwTMNq0.png"
+              src="/thung-u-chuop.png" // Đề xuất: Thay bằng đường dẫn ảnh trong thư mục public của bạn
               alt="Thùng gỗ ủ chượp nước mắm Chin-su"
               width={800}
               height={400}
