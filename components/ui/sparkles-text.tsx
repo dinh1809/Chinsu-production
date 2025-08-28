@@ -54,7 +54,18 @@ export function SparklesText({ children, className = "", style = {} }: SparklesT
   }, [])
 
   return (
-    <div ref={containerRef} className={`relative inline-block ${className}`} style={style}>
+    <div
+      ref={containerRef}
+      className={`relative inline-block ${className}`}
+      style={{
+        fontFamily: '"Inter", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", sans-serif',
+        fontFeatureSettings: '"kern" 1, "liga" 1, "calt" 1',
+        textRendering: "optimizeLegibility",
+        WebkitFontSmoothing: "antialiased",
+        MozOsxFontSmoothing: "grayscale",
+        ...style,
+      }}
+    >
       {children}
 
       {/* Sparkles overlay */}
