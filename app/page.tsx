@@ -897,10 +897,10 @@ export default function HomePage() {
         }
         .switcher-btn:hover {
           transform: translateY(-5px);
-          border-color: var(--accent-yellow);
+          border-color: var(--accent-yellow, #FFC107);
         }
         .switcher-btn.active {
-          border-color: var(--primary-red);
+          border-color: var(--primary-red, #e52421);
           transform: translateY(-5px) scale(1.1);
           box-shadow: 0 0 15px rgba(229, 36, 33, 0.5);
         }
