@@ -13,14 +13,20 @@ export default function HomePage() {
         const cursor = document.querySelector(".cursor")
         if (cursor) {
           const handleMouseMove = (e: MouseEvent) => {
-            cursor.setAttribute("style", `top: ${e.pageY}px; left: ${e.pageX}px;`)
+            try {
+              cursor.setAttribute("style", `top: ${e.pageY}px; left: ${e.pageX}px;`)
+            } catch (error) {
+              console.error("Cursor movement error:", error)
+            }
           }
           document.addEventListener("mousemove", handleMouseMove)
 
           const hoverElements = document.querySelectorAll("a, button, .resource-card")
           hoverElements.forEach((el) => {
-            el.addEventListener("mouseover", () => cursor.classList.add("hovered"))
-            el.addEventListener("mouseout", () => cursor.classList.remove("hovered"))
+            if (el) {
+              el.addEventListener("mouseover", () => cursor.classList.add("hovered"))
+              el.addEventListener("mouseout", () => cursor.classList.remove("hovered"))
+            }
           })
         }
 
@@ -28,7 +34,11 @@ export default function HomePage() {
         const navbar = document.getElementById("navbar")
         if (navbar) {
           const handleScroll = () => {
-            navbar.classList.toggle("scrolled", window.scrollY > 50)
+            try {
+              navbar.classList.toggle("scrolled", window.scrollY > 50)
+            } catch (error) {
+              console.error("Navbar scroll error:", error)
+            }
           }
           window.addEventListener("scroll", handleScroll)
         }
@@ -38,26 +48,38 @@ export default function HomePage() {
         const timelineProgress = document.querySelector(".timeline-progress")
         const storyContainer = document.querySelector("#brand-story")
 
-        if (storyPoints.length > 0 && storyContainer) {
+        if (storyPoints.length > 0 && storyContainer && timelineProgress) {
           const storyObserver = new IntersectionObserver(
             (entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) entry.target.classList.add("is-visible")
-              })
+              try {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting && entry.target) {
+                    entry.target.classList.add("is-visible")
+                  }
+                })
+              } catch (error) {
+                console.error("Story observer error:", error)
+              }
             },
             { threshold: 0.5 },
           )
 
-          storyPoints.forEach((point) => storyObserver.observe(point))
+          storyPoints.forEach((point) => {
+            if (point) storyObserver.observe(point)
+          })
 
           const handleTimelineScroll = () => {
-            const rect = storyContainer.getBoundingClientRect()
-            const progress = Math.max(
-              0,
-              Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)),
-            )
-            if (timelineProgress) {
-              ;(timelineProgress as HTMLElement).style.height = `${progress * 100}%`
+            try {
+              const rect = storyContainer.getBoundingClientRect()
+              const progress = Math.max(
+                0,
+                Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)),
+              )
+              if (timelineProgress) {
+                ;(timelineProgress as HTMLElement).style.height = `${progress * 100}%`
+              }
+            } catch (error) {
+              console.error("Timeline scroll error:", error)
             }
           }
           window.addEventListener("scroll", handleTimelineScroll)
@@ -70,37 +92,62 @@ export default function HomePage() {
 
         if (productDetails.length > 0 && productImages.length > 0 && switcherBtns.length > 0) {
           const setActiveProduct = (id: string) => {
-            productImages.forEach((img) => img.classList.toggle("active", (img as HTMLElement).dataset.id === id))
-            switcherBtns.forEach((btn) => btn.classList.toggle("active", (btn as HTMLElement).dataset.id === id))
+            try {
+              productImages.forEach((img) => {
+                if (img && (img as HTMLElement).dataset) {
+                  img.classList.toggle("active", (img as HTMLElement).dataset.id === id)
+                }
+              })
+              switcherBtns.forEach((btn) => {
+                if (btn && (btn as HTMLElement).dataset) {
+                  btn.classList.toggle("active", (btn as HTMLElement).dataset.id === id)
+                }
+              })
+            } catch (error) {
+              console.error("Set active product error:", error)
+            }
           }
 
           const productObserver = new IntersectionObserver(
             (entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  const id = (entry.target as HTMLElement).dataset.id
-                  if (id) setActiveProduct(id)
-                }
-              })
+              try {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting && entry.target) {
+                    const id = (entry.target as HTMLElement).dataset?.id
+                    if (id) setActiveProduct(id)
+                  }
+                })
+              } catch (error) {
+                console.error("Product observer error:", error)
+              }
             },
             { threshold: 0.6 },
           )
 
-          productDetails.forEach((detail) => productObserver.observe(detail))
+          productDetails.forEach((detail) => {
+            if (detail) productObserver.observe(detail)
+          })
 
           switcherBtns.forEach((btn) => {
-            btn.addEventListener("click", () => {
-              const id = btn.getAttribute("data-id")
-              const targetDetail = document.querySelector(`.product-detail-item[data-id="${id}"]`)
-
-              if (targetDetail) {
-                const targetPosition = (targetDetail as HTMLElement).offsetTop - 200
-                window.scrollTo({
-                  top: targetPosition,
-                  behavior: "smooth",
-                })
-              }
-            })
+            if (btn) {
+              btn.addEventListener("click", () => {
+                try {
+                  const id = btn.getAttribute("data-id")
+                  if (id) {
+                    const targetDetail = document.querySelector(`.product-detail-item[data-id="${id}"]`)
+                    if (targetDetail) {
+                      const targetPosition = (targetDetail as HTMLElement).offsetTop - 200
+                      window.scrollTo({
+                        top: targetPosition,
+                        behavior: "smooth",
+                      })
+                    }
+                  }
+                } catch (error) {
+                  console.error("Switcher button click error:", error)
+                }
+              })
+            }
           })
 
           // Initialize first product
@@ -113,23 +160,33 @@ export default function HomePage() {
 
         if (filterButtons.length > 0 && resourceItems.length > 0) {
           filterButtons.forEach((button) => {
-            button.addEventListener("click", () => {
-              const filter = (button as HTMLElement).dataset.filter
+            if (button) {
+              button.addEventListener("click", () => {
+                try {
+                  const filter = (button as HTMLElement).dataset?.filter
 
-              // Update active button
-              filterButtons.forEach((btn) => btn.classList.remove("active"))
-              button.classList.add("active")
+                  // Update active button
+                  filterButtons.forEach((btn) => {
+                    if (btn) btn.classList.remove("active")
+                  })
+                  button.classList.add("active")
 
-              // Filter items
-              resourceItems.forEach((item) => {
-                const itemType = (item as HTMLElement).dataset.type
-                if (filter === "all" || itemType === filter) {
-                  item.classList.remove("hidden")
-                } else {
-                  item.classList.add("hidden")
+                  // Filter items
+                  resourceItems.forEach((item) => {
+                    if (item) {
+                      const itemType = (item as HTMLElement).dataset?.type
+                      if (filter === "all" || itemType === filter) {
+                        item.classList.remove("hidden")
+                      } else {
+                        item.classList.add("hidden")
+                      }
+                    }
+                  })
+                } catch (error) {
+                  console.error("Filter button click error:", error)
                 }
               })
-            })
+            }
           })
         }
       } catch (error) {
@@ -137,7 +194,7 @@ export default function HomePage() {
       }
     }
 
-    const timeoutId = setTimeout(initializeInteractions, 100)
+    const timeoutId = setTimeout(initializeInteractions, 200)
 
     // Cleanup function
     return () => {
@@ -539,7 +596,7 @@ export default function HomePage() {
                   ></iframe>
                 </div>
                 <div className="card-content">
-                  <h3>ChinSu Podcast - Câu Chuyện Gia Vị</h3>
+                  <h3>ChinSu Podcast - "Soi" chiến dịch Go Global của nhà ChinSu</h3>
                   <p>
                     Khám phá những câu chuyện thú vị về gia vị Việt Nam và hành trình phát triển của thương hiệu
                     ChinSu...
@@ -547,6 +604,34 @@ export default function HomePage() {
                   <div className="podcast-meta">
                     <span className="podcast-duration">{"🎧 3 phút"}</span>
                     <span className="podcast-views">👁️ 12 lượt xem</span>
+                  </div>
+                </div>
+              </article>
+
+              <article className="resource-item podcast-card" data-type="podcast">
+                <div className="podcast-video-wrapper">
+                  <iframe
+                    width="100%"
+                    height="315"
+                    src="https://www.youtube.com/embed/nGDFVAKWI28?si=7rMdYTwrxzuh1_SH"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                <div className="card-content">
+                  <h3>Câu Chuyện Thương Hiệu ChinSu: Nghe Ngay Kẻo Lỡ (Podcast #2)</h3>
+                  <p>
+                    🎙️ Podcast #2: Hành Trình Thương Hiệu ChinSu – Khám phá bí mật đằng sau sự thành công của một trong
+                    những thương hiệu gia vị nổi tiếng nhất Việt Nam. Từ những ngày đầu xây dựng đến hành trình trở
+                    thành cái tên quen thuộc trong bữa cơm gia đình, ChinSu đã làm gì để chạm đến trái tim hàng triệu
+                    người tiêu dùng?
+                  </p>
+                  <div className="podcast-meta">
+                    <span className="podcast-duration">{"🎧 Podcast #2"}</span>
+                    <span className="podcast-views">👁️ Mới phát hành</span>
                   </div>
                 </div>
               </article>
