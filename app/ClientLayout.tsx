@@ -1,7 +1,10 @@
+"use client"
+
 import type React from "react"
-import type { Metadata } from "next"
 import { Be_Vietnam_Pro, Playfair_Display } from "next/font/google"
-import ClientLayout from "./client-layout"
+import { Analytics } from "@vercel/analytics/react"
+import { useSearchParams } from "next/navigation"
+import { Suspense } from "react"
 import "./globals.css"
 
 const beVietnamPro = Be_Vietnam_Pro({
@@ -18,24 +21,21 @@ const playfairDisplay = Playfair_Display({
   variable: "--font-heading",
 })
 
-export const metadata: Metadata = {
-  title: "ChinSu: Đam Mê Trọn Vị",
-  description: "Modern concept website for ChinSu Vietnamese condiments",
-    generator: 'v0.app'
-}
-
-export default function RootLayout({
+export default function ClientLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const searchParams = useSearchParams()
+
   return (
     <html lang="vi" className={`${beVietnamPro.variable} ${playfairDisplay.variable}`}>
       <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
       </head>
       <body>
-        <ClientLayout>{children}</ClientLayout>
+        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+        <Analytics />
       </body>
     </html>
   )
