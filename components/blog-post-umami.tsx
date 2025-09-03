@@ -99,19 +99,39 @@ export function BlogPost() {
 
           <h3 className="text-2xl font-semibold text-black mt-10 mb-4">Nước mắm ở Việt Nam</h3>
           <p className="text-gray-700 leading-relaxed mb-6">
-            Với quá trình lên men tự nhiên từ cá và muối, nước mắm Việt chứa hàm lượng axit amin và peptide dồi dào,
-            chính là những yếu tố tạo nên vị umami đặc trưng. Không chỉ là gia vị chấm, nước mắm còn là linh hồn trong
-            nhiều món ăn Việt, đem đến vị ngon trọn vẹn, đậm đà bản sắc.
+            Với quá trình lên men tự nhiên từ cá và muối,{" "}
+            <a
+              href="https://shopee.vn/-Ch%E1%BB%8Dn-lo%E1%BA%A1i-N%C6%B0%E1%BB%9Bc-M%E1%BA%AFm-CHIN-SU-%E1%BB%A6-Ch%C6%B0%E1%BB%A3p-365-Ng%C3%A0y-700ml-i.987373161.42463243730?sp_atk=38f6c0f0-1981-4a5c-8d73-191e721ab549&xptdk=38f6c0f0-1981-4a5c-8d73-191e721ab549"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-red-700 hover:text-red-800 underline"
+            >
+              nước mắm
+            </a>{" "}
+            Việt chứa hàm lượng axit amin và peptide dồi dào, chính là những yếu tố tạo nên vị umami đặc trưng. Không
+            chỉ là gia vị chấm, <strong className="font-bold text-red-700">nước mắm</strong> còn là linh hồn trong nhiều
+            món ăn Việt, đem đến vị ngon trọn vẹn, đậm đà bản sắc.
           </p>
 
           <h2 className="text-3xl font-bold text-red-700 mt-12 mb-6">
-            Bí quyết tạo ra vị Umami đậm đà trong nước mắm Chin-su
+            Bí quyết tạo ra vị Umami đậm đà trong{" "}
+            <a
+              href="https://shopee.vn/-Ch%E1%BB%8Dn-lo%E1%BA%A1i-N%C6%B0%E1%BB%9Bc-M%E1%BA%AFm-CHIN-SU-%E1%BB%A6-Ch%C6%B0%E1%BB%A3p-365-Ng%C3%A0y-700ml-i.987373161.42463243730?sp_atk=38f6c0f0-1981-4a5c-8d73-191e721ab549&xptdk=38f6c0f0-1981-4a5c-8d73-191e721ab549"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-red-700 hover:text-red-800 underline"
+            >
+              nước mắm
+            </a>{" "}
+            Chin-su
           </h2>
 
           <p className="text-gray-700 leading-relaxed mb-6">
-            Theo tiêu chuẩn Codex nước mắm, thời gian ủ chượp các loại nước mắm hiện nay là từ 6-8 tháng nhưng đây chỉ
-            là cột mốc tối thiểu để cá muối lên men và cho ra thành phẩm nước mắm ở mức cơ bản. Ngược lại, nếu ủ chượp
-            quá 12 tháng, quá trình oxy hoá cùng biến tính kéo dài khiến làm lượng Nitơ và Umami suy giảm.
+            Theo tiêu chuẩn Codex <strong className="font-bold text-red-700">nước mắm</strong>, thời gian ủ chượp các
+            loại <strong className="font-bold text-red-700">nước mắm</strong> hiện nay là từ 6-8 tháng nhưng đây chỉ là
+            cột mốc tối thiểu để cá muối lên men và cho ra thành phẩm{" "}
+            <strong className="font-bold text-red-700">nước mắm</strong> ở mức cơ bản. Ngược lại, nếu ủ chượp quá 12
+            tháng, quá trình oxy hoá cùng biến tính kéo dài khiến làm lượng Nitơ và Umami suy giảm.
           </p>
 
           <div className="bg-gray-50 p-8 rounded-lg my-8">
@@ -128,9 +148,18 @@ export function BlogPost() {
           </div>
 
           <p className="text-gray-700 leading-relaxed mb-6">
-            Vì vậy mà sự khác biệt tạo nên hương vị ngon ngọt tự nhiên Umami trong nước mắm Chin-su về cả sắc, hương và
-            vị là sự áp dụng công nghệ ủ chượp 365 ngày với sự giám sát chặt chẽ của các chuyên gia. Đây là thời điểm
-            "vàng" để mắm chín đều, đạt độ đạm cao và có hương vị đậm đặc cùng hậu vị Umami hoàn hảo.
+            Vì vậy mà sự khác biệt tạo nên hương vị ngon ngọt tự nhiên Umami trong{" "}
+            <a
+              href="https://shopee.vn/-Ch%E1%BB%8Dn-lo%E1%BA%A1i-N%C6%B0%E1%BB%9Bc-M%E1%BA%AFm-CHIN-SU-%E1%BB%A6-Ch%C6%B0%E1%BB%A3p-365-Ng%C3%A0y-700ml-i.987373161.42463243730?sp_atk=38f6c0f0-1981-4a5c-8d73-191e721ab549&xptdk=38f6c0f0-1981-4a5c-8d73-191e721ab549"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-red-700 hover:text-red-800 underline"
+            >
+              nước mắm
+            </a>{" "}
+            Chin-su về cả sắc, hương và vị là sự áp dụng công nghệ ủ chượp 365 ngày với sự giám sát chặt chẽ của các
+            chuyên gia. Đây là thời điểm "vàng" để mắm chín đều, đạt độ đạm cao và có hương vị đậm đặc cùng hậu vị Umami
+            hoàn hảo.
           </p>
 
           <blockquote className="border-l-4 border-primary bg-gray-50 p-6 my-8 italic text-lg text-gray-800">
@@ -140,8 +169,9 @@ export function BlogPost() {
 
           <p className="text-gray-700 leading-relaxed mb-8">
             Qua bài viết này, hi vọng Chin-su đã giúp bạn đọc đã biết được một vài sự thật về vị Umami, vị ngon tạo nên
-            nhiều món ăn "gây thương nhớ" và bí quyết của Chin-su giúp vị ngon này đạt tối đa trong dòng sản phẩm nước
-            mắm. Hãy theo dõi Chin-su để biết thêm những sự thật thú vị khác trong ẩm thực Việt Nam và thế giới nha.
+            nhiều món ăn "gây thương nhớ" và bí quyết của Chin-su giúp vị ngon này đạt tối đa trong dòng sản phẩm{" "}
+            <strong className="font-bold text-red-700">nước mắm</strong>. Hãy theo dõi Chin-su để biết thêm những sự
+            thật thú vị khác trong ẩm thực Việt Nam và thế giới nha.
           </p>
 
           {/* Call to action */}
@@ -162,9 +192,9 @@ export function BlogPost() {
               <a href="#" className="text-primary hover:text-primary/80 font-medium">
                 Chia sẻ bài viết
               </a>
-              <a href="#" className="text-primary hover:text-primary/80 font-medium">
-                Bài viết khác
-              </a>
+              <Link href="/blog/bien_dong" className="text-primary hover:text-primary/80 font-medium">
+                Bài viết khác: Tinh tuý từ biển Đông
+              </Link>
             </div>
           </div>
         </div>

@@ -42,9 +42,19 @@ export function BlogPost() {
         {/* Article content */}
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-gray-700 leading-relaxed mb-8">
-            Trong mỗi bữa cơm của gia đình người Việt, nước mắm luôn hiện diện như một loại gia vị làm trọn vẹn các món
-            ăn; và sự ra đời của nước mắm Chin-su Cá Cơm Biển Đông chính là một bước đột phá mang đến hương vị đậm đà và
-            chất lượng tuyệt đối. Hãy khám phá ngay quy trình tỉ mẩn để sản xuất nước mắm ngon cùng Chin-su nhé!
+            Trong mỗi bữa cơm của gia đình người Việt,{" "}
+            <a
+              href="https://shopee.vn/-Ch%E1%BB%8Dn-lo%E1%BA%A1i-N%C6%B0%E1%BB%9Bc-M%E1%BA%AFm-CHIN-SU-%E1%BB%A6-Ch%C6%B0%E1%BB%A3p-365-Ng%C3%A0y-700ml-i.987373161.42463243730?sp_atk=38f6c0f0-1981-4a5c-8d73-191e721ab549&xptdk=38f6c0f0-1981-4a5c-8d73-191e721ab549"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-red-700 hover:text-red-800 underline"
+            >
+              nước mắm
+            </a>{" "}
+            luôn hiện diện như một loại gia vị làm trọn vẹn các món ăn; và sự ra đời của{" "}
+            <strong className="font-bold text-red-700">nước mắm</strong> Chin-su Cá Cơm Biển Đông chính là một bước đột
+            phá mang đến hương vị đậm đà và chất lượng tuyệt đối. Hãy khám phá ngay quy trình tỉ mẩn để sản xuất{" "}
+            <strong className="font-bold text-red-700">nước mắm</strong> ngon cùng Chin-su nhé!
           </p>
 
           <div className="my-8">
@@ -96,27 +106,66 @@ export function BlogPost() {
 
           <h3 className="text-2xl font-semibold text-black mt-10 mb-4">Bước 4: Rút mắm nhĩ và lọc mắm tinh xảo</h3>
           <p className="text-gray-700 leading-relaxed mb-6">
-            Sau thời gian chượp mắm “chín” sẽ được rút nhĩ qua vòi nằm ở gần đáy chượp, loại nước mắm này có độ đạm rất
-            cao, vị mặn đằm nên thường không được bán trên thị trường, mà được sử dụng để pha với các loại nước mắm thấp
-            đạm khác. Nước mắm còn lại trong thùng sẽ qua quy trình lọc mắm để lọc sạch tạp chất, giúp nước mắm trong
-            hơn.
+            Sau thời gian chượp mắm "chín" sẽ được rút nhĩ qua vòi nằm ở gần đáy chượp, loại{" "}
+            <strong className="font-bold text-red-700">nước mắm</strong> này có độ đạm rất cao, vị mặn đằm nên thường
+            không được bán trên thị trường, mà được sử dụng để pha với các loại{" "}
+            <strong className="font-bold text-red-700">nước mắm</strong> thấp đạm khác.{" "}
+            <a
+              href="https://shopee.vn/-Ch%E1%BB%8Dn-lo%E1%BA%A1i-N%C6%B0%E1%BB%9Bc-M%E1%BA%AFm-CHIN-SU-%E1%BB%A6-Ch%C6%B0%E1%BB%A3p-365-Ng%C3%A0y-700ml-i.987373161.42463243730?sp_atk=38f6c0f0-1981-4a5c-8d73-191e721ab549&xptdk=38f6c0f0-1981-4a5c-8d73-191e721ab549"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-red-700 hover:text-red-800 underline"
+            >
+              Nước mắm
+            </a>{" "}
+            còn lại trong thùng sẽ qua quy trình lọc mắm để lọc sạch tạp chất, giúp{" "}
+            <strong className="font-bold text-red-700">nước mắm</strong> trong hơn.
           </p>
 
           <h3 className="text-2xl font-semibold text-black mt-10 mb-4">Bước 5: Đóng chai và kiểm định kỹ càng</h3>
           <p className="text-gray-700 leading-relaxed mb-6">
-            Nước mắm sau khi lọc sẽ được đóng chai và chuyển đến cơ sở kiểm định chất lượng và vệ sinh an toàn thực
-            phẩm. Khi đạt tiêu chuẩn sẽ được đưa đến tay người tiêu dùng. Với quy trình lên men tỉ mỉ và nghiêm ngặt từ
-            khâu chọn lọc nguyên liệu cho đến khi đóng chai, từng giọt nước mắm Chin-su không chỉ giữ trọn vẹn hương vị
-            đậm đà mà còn đảm bảo độ tinh khiết, an toàn cho bữa ăn hằng ngày. Chính sự kỹ lưỡng này khiến nước mắm
+            <a
+              href="https://shopee.vn/-Ch%E1%BB%8Dn-lo%E1%BA%A1i-N%C6%B0%E1%BB%9Bc-M%E1%BA%AFm-CHIN-SU-%E1%BB%A6-Ch%C6%B0%E1%BB%A3p-365-Ng%C3%A0y-700ml-i.987373161.42463243730?sp_atk=38f6c0f0-1981-4a5c-8d73-191e721ab549&xptdk=38f6c0f0-1981-4a5c-8d73-191e721ab549"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-red-700 hover:text-red-800 underline"
+            >
+              Nước mắm
+            </a>{" "}
+            sau khi lọc sẽ được đóng chai và chuyển đến cơ sở kiểm định chất lượng và vệ sinh an toàn thực phẩm. Khi đạt
+            tiêu chuẩn sẽ được đưa đến tay người tiêu dùng. Với quy trình lên men tỉ mỉ và nghiêm ngặt từ khâu chọn lọc
+            nguyên liệu cho đến khi đóng chai, từng giọt <strong className="font-bold text-red-700">nước mắm</strong>{" "}
+            Chin-su không chỉ giữ trọn vẹn hương vị đậm đà mà còn đảm bảo độ tinh khiết, an toàn cho bữa ăn hằng ngày.
+            Chính sự kỹ lưỡng này khiến <strong className="font-bold text-red-700">nước mắm</strong>
             Chin-su trở thành lựa chọn đáng tin cậy để bảo vệ sức khỏe cho cả gia đình. Hãy cùng khám phá tiếp những lợi
-            ích mà nước mắm sạch mang lại cho dinh dưỡng và đời sống của cả gia đình nhé.
+            ích mà <strong className="font-bold text-red-700">nước mắm</strong> sạch mang lại cho dinh dưỡng và đời sống
+            của cả gia đình nhé.
           </p>
 
-          <h2 className="text-3xl font-bold text-red-700 mt-12 mb-6">Lợi ích của nước mắm sạch với sức khoẻ</h2>
+          <h2 className="text-3xl font-bold text-red-700 mt-12 mb-6">
+            Lợi ích của{" "}
+            <a
+              href="https://shopee.vn/-Ch%E1%BB%8Dn-lo%E1%BA%A1i-N%C6%B0%E1%BB%9Bc-M%E1%BA%AFm-CHIN-SU-%E1%BB%A6-Ch%C6%B0%E1%BB%A3p-365-Ng%C3%A0y-700ml-i.987373161.42463243730?sp_atk=38f6c0f0-1981-4a5c-8d73-191e721ab549&xptdk=38f6c0f0-1981-4a5c-8d73-191e721ab549"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-red-700 hover:text-red-800 underline"
+            >
+              nước mắm
+            </a>{" "}
+            sạch với sức khoẻ
+          </h2>
           <p className="text-gray-700 leading-relaxed mb-6">
-            Nước mắm Cá Cơm Biển Đông Chin-su chiết xuất từ tinh hoa của biền Đông, cá cơm tươi kết hợp cùng muối vùng
-            biển Vũng Tàu. Gia vị này không chỉ tăng thêm hương vị đậm đà cho món ăn mà còn bổ sung nhiều dưỡng chất tốt
-            cho sức khoẻ gia đình.
+            <a
+              href="https://shopee.vn/-Ch%E1%BB%8Dn-lo%E1%BA%A1i-N%C6%B0%E1%BB%9Bc-M%E1%BA%AFm-CHIN-SU-%E1%BB%A6-Ch%C6%B0%E1%BB%A3p-365-Ng%C3%A0y-700ml-i.987373161.42463243730?sp_atk=38f6c0f0-1981-4a5c-8d73-191e721ab549&xptdk=38f6c0f0-1981-4a5c-8d73-191e721ab549"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-red-700 hover:text-red-800 underline"
+            >
+              Nước mắm
+            </a>{" "}
+            Cá Cơm Biển Đông Chin-su chiết xuất từ tinh hoa của biền Đông, cá cơm tươi kết hợp cùng muối vùng biển Vũng
+            Tàu. Gia vị này không chỉ tăng thêm hương vị đậm đà cho món ăn mà còn bổ sung nhiều dưỡng chất tốt cho sức
+            khoẻ gia đình.
           </p>
 
           <div className="my-8">
@@ -132,18 +181,21 @@ export function BlogPost() {
 
           <h3 className="text-2xl font-semibold text-black mt-10 mb-4">Cung cấp nguồn axit amin</h3>
           <p className="text-gray-700 leading-relaxed mb-6">
-            Được ủ chượp từ cá và muối, nước mắm trong quá trình thuỷ phân sản sinh ra nhiều axit amin có lợi giúp điều
-            hoà cơ thể, hỗ trợ giấc ngủ và tăng cảm giác ngon miệng. Ngoài ra, lysine có trong nước mắm sạch giúp tăng
+            Được ủ chượp từ cá và muối, <strong className="font-bold text-red-700">nước mắm</strong> trong quá trình
+            thuỷ phân sản sinh ra nhiều axit amin có lợi giúp điều hoà cơ thể, hỗ trợ giấc ngủ và tăng cảm giác ngon
+            miệng. Ngoài ra, lysine có trong <strong className="font-bold text-red-700">nước mắm</strong> sạch giúp tăng
             khả năng hấp thụ canxi và gia tăng chuyển hoá. Do rất dễ bị phá huỷ trong quá trình đun nấu, các vi chất này
-            càng trở nên quý giá khi được bảo toàn nhờ quá trình lên men trong nước mắm sạch.
+            càng trở nên quý giá khi được bảo toàn nhờ quá trình lên men trong{" "}
+            <strong className="font-bold text-red-700">nước mắm</strong> sạch.
           </p>
 
           <h3 className="text-2xl font-semibold text-black mt-10 mb-4">Bổ sung hàm lượng Vitamin tự nhiên</h3>
           <p className="text-gray-700 leading-relaxed mb-6">
-            Theo ước tính, cứ khoảng 100ml nước mắm sạch sẽ có 5 microgam vitamin B12. Đây là loại vitamin cần thiết cho
-            bữa ăn hằng ngày bởi cơ thể không thể tự tổng hợp được mà chỉ có thể bổ sung qua thực phẩm. Với hàm lượng
-            vitamin dồi dào, nước mắm sạch trở thành một trong những nguồn bổ sung B12 tự nhiên, hóp phần duy trì năng
-            lượng cho cả gia đình.
+            Theo ước tính, cứ khoảng 100ml <strong className="font-bold text-red-700">nước mắm</strong> sạch sẽ có 5
+            microgam vitamin B12. Đây là loại vitamin cần thiết cho bữa ăn hằng ngày bởi cơ thể không thể tự tổng hợp
+            được mà chỉ có thể bổ sung qua thực phẩm. Với hàm lượng vitamin dồi dào,{" "}
+            <strong className="font-bold text-red-700">nước mắm</strong> sạch trở thành một trong những nguồn bổ sung
+            B12 tự nhiên, hóp phần duy trì năng lượng cho cả gia đình.
           </p>
 
           <h3 className="text-2xl font-semibold text-black mt-10 mb-4">Cung cấp Omega 3</h3>
@@ -151,13 +203,17 @@ export function BlogPost() {
             Hàm lượng Omega 3 trong cá cơm rất dồi dào, đặc biệt là “hàng tuyển” thì lại càng nhiều dưỡng chất hơn. Cứ
             khoảng 100g cá cơm sẽ chứa 2113 Omega 3, đóng vai trò quan trọng với sự phát triển thị lực và trí thần kinh.
             Ngoài ra, chất béo có lợi này có tác dụng làm giảm mỡ máu và bảo vệ tim mạch. Với những người ít ăn cá thì
-            nước mắm chính là nguồn bổ sung Omega 3 tự nhiên tốt nhất.
+            <strong className="font-bold text-red-700">nước mắm</strong> chính là nguồn bổ sung Omega 3 tự nhiên tốt
+            nhất.
           </p>
 
           <p className="text-gray-700 leading-relaxed mb-8">
-            Qua bài viết này, hẳn bạn đã nắm được quy trình làm nước mắm Chin-su Cá Cơm Biển Đông và lợi ích của nước
-            mắm sạch đối với sức khoẻ. Là người tiêu dùng thông minh, hãy chọn loại nước mắm từ thương hiệu uy tín để an
-            tâm thưởng thức nước mắm thơm ngon hảo hạn và có một sức khoẻ thật tốt nhé.
+            Qua bài viết này, hẳn bạn đã nắm được quy trình làm{" "}
+            <strong className="font-bold text-red-700">nước mắm</strong> Chin-su Cá Cơm Biển Đông và lợi ích của{" "}
+            <strong className="font-bold text-red-700">nước mắm</strong> sạch đối với sức khoẻ. Là người tiêu dùng thông
+            minh, hãy chọn loại <strong className="font-bold text-red-700">nước mắm</strong> từ thương hiệu uy tín để an
+            tâm thưởng thức <strong className="font-bold text-red-700">nước mắm</strong> thơm ngon hảo hạn và có một sức
+            khoẻ thật tốt nhé.
           </p>
         </div>
       </main>
@@ -171,9 +227,9 @@ export function BlogPost() {
               <a href="#" className="text-primary hover:text-primary/80 font-medium">
                 Chia sẻ bài viết
               </a>
-              <a href="#" className="text-primary hover:text-primary/80 font-medium">
-                Bài viết khác
-              </a>
+              <Link href="/blog/kham-pha-umami" className="text-primary hover:text-primary/80 font-medium">
+                Bài viết khác: Khám phá Umami Việt Nam
+              </Link>
             </div>
           </div>
         </div>
