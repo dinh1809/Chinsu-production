@@ -439,6 +439,7 @@ export default function HomePage() {
               </p>
             </div>
 
+            {/* Enhanced filter button styling for better clickability and visual feedback */}
             <div className="resources-filter">
               <button className="filter-btn active" data-filter="all">
                 Tất Cả
@@ -526,7 +527,9 @@ export default function HomePage() {
               </article>
 
               {/* Video Content */}
+              {/* Ensure video cards have proper loading states */}
               <article className="resource-item video-card" data-type="video">
+                {/* Enhanced video wrapper styling for better thumbnail loading */}
                 <div className="video-wrapper">
                   <iframe
                     width="100%"
@@ -1024,34 +1027,45 @@ export default function HomePage() {
           margin-top: 1rem;
         }
 
+        /* Enhanced filter button styling for better clickability and visual feedback */
         .resources-filter {
           display: flex;
           justify-content: center;
           gap: 1rem;
-          margin-bottom: 3rem;
+          margin: 2rem 0;
           flex-wrap: wrap;
         }
 
         .filter-btn {
           padding: 0.75rem 1.5rem;
-          border: 2px solid #333;
-          background: transparent;
+          border: 2px solid rgba(255, 255, 255, 0.2);
+          background: rgba(0, 0, 0, 0.3);
           color: white;
           border-radius: 25px;
           cursor: pointer;
           transition: all 0.3s ease;
           font-weight: 500;
+          font-size: 0.95rem;
+          backdrop-filter: blur(10px);
+          position: relative;
+          z-index: 10;
+          min-width: 100px;
+          text-align: center;
         }
 
         .filter-btn:hover {
-          border-color: #FFC107;
-          color: #FFC107;
+          border-color: var(--accent-yellow, #FFC107);
+          background: rgba(255, 193, 7, 0.1);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
 
         .filter-btn.active {
-          background: #e52421;
-          border-color: #e52421;
+          border-color: var(--primary-red, #e52421);
+          background: rgba(229, 36, 33, 0.2);
           color: white;
+          box-shadow: 0 4px 20px rgba(229, 36, 33, 0.4);
+          transform: translateY(-2px);
         }
 
         .resources-grid {
@@ -1148,10 +1162,14 @@ export default function HomePage() {
           color: white;
         }
 
+        /* Enhanced video wrapper styling for better thumbnail loading */
         .video-wrapper, .podcast-video-wrapper {
           position: relative;
           width: 100%;
           height: 225px;
+          border-radius: 12px;
+          overflow: hidden;
+          background: #000;
         }
 
         .podcast-video-wrapper {
@@ -1162,6 +1180,24 @@ export default function HomePage() {
           width: 100%;
           height: 100%;
           border: none;
+          border-radius: 12px;
+          background: #000;
+        }
+
+        /* Ensure video cards have proper loading states */
+        .video-card, .podcast-card {
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 16px;
+          overflow: hidden;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .video-card:hover, .podcast-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 193, 7, 0.2);
+          border-color: var(--accent-yellow, #FFC107);
         }
 
         .tips-icon {
