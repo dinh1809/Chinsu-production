@@ -2,34 +2,12 @@
 
 import { useEffect } from "react"
 import { SparklesText } from "@/components/ui/sparkles-text"
-import { GlowingEffect } from "@/components/ui/glowing-effect"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 
 export default function HomePage() {
   useEffect(() => {
-    const initializeInteractions = () => {
+    const initializeNavbar = () => {
       try {
-        // --- Custom Cursor ---
-        const cursor = document.querySelector(".cursor")
-        if (cursor) {
-          const handleMouseMove = (e: MouseEvent) => {
-            try {
-              cursor.setAttribute("style", `top: ${e.pageY}px; left: ${e.pageX}px;`)
-            } catch (error) {
-              console.error("Cursor movement error:", error)
-            }
-          }
-          document.addEventListener("mousemove", handleMouseMove)
-
-          const hoverElements = document.querySelectorAll("a, button, .resource-card")
-          hoverElements.forEach((el) => {
-            if (el) {
-              el.addEventListener("mouseover", () => cursor.classList.add("hovered"))
-              el.addEventListener("mouseout", () => cursor.classList.remove("hovered"))
-            }
-          })
-        }
-
         // --- Navbar Scroll Effect ---
         const navbar = document.getElementById("navbar")
         if (navbar) {
@@ -41,162 +19,116 @@ export default function HomePage() {
             }
           }
           window.addEventListener("scroll", handleScroll)
-        }
 
-        // --- Scrollytelling: Brand Story Timeline ---
-        const storyPoints = document.querySelectorAll(".story-point")
-        const timelineProgress = document.querySelector(".timeline-progress")
-        const storyContainer = document.querySelector("#brand-story")
-
-        if (storyPoints.length > 0 && storyContainer && timelineProgress) {
-          const storyObserver = new IntersectionObserver(
-            (entries) => {
-              try {
-                entries.forEach((entry) => {
-                  if (entry.isIntersecting && entry.target) {
-                    entry.target.classList.add("is-visible")
-                  }
-                })
-              } catch (error) {
-                console.error("Story observer error:", error)
-              }
-            },
-            { threshold: 0.5 },
-          )
-
-          storyPoints.forEach((point) => {
-            if (point) storyObserver.observe(point)
-          })
-
-          const handleTimelineScroll = () => {
-            try {
-              const rect = storyContainer.getBoundingClientRect()
-              const progress = Math.max(
-                0,
-                Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)),
-              )
-              if (timelineProgress) {
-                ;(timelineProgress as HTMLElement).style.height = `${progress * 100}%`
-              }
-            } catch (error) {
-              console.error("Timeline scroll error:", error)
-            }
+          // Clean up function
+          return () => {
+            window.removeEventListener("scroll", handleScroll)
           }
-          window.addEventListener("scroll", handleTimelineScroll)
         }
 
-        // --- Interactive Product Showcase ---
-        const productDetails = document.querySelectorAll(".product-detail-item")
-        const productImages = document.querySelectorAll(".product-image")
+        // --- Smooth Scrolling for Navigation Links ---
+        const navLinks = document.querySelectorAll('.nav-links a[href^="#"]')
+        navLinks.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault()
+            const targetId = link.getAttribute("href")?.substring(1)
+            if (targetId) {
+              const targetElement = document.getElementById(targetId)
+              if (targetElement) {
+                targetElement.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                })
+              }
+            }
+          })
+        })
+
+        // --- Product Switcher Logic ---
         const switcherBtns = document.querySelectorAll(".switcher-btn")
+        const productImages = document.querySelectorAll(".product-image")
+        const productDetails = document.querySelectorAll(".product-detail-item")
 
-        if (productDetails.length > 0 && productImages.length > 0 && switcherBtns.length > 0) {
-          const setActiveProduct = (id: string) => {
-            try {
-              productImages.forEach((img) => {
-                if (img && (img as HTMLElement).dataset) {
-                  img.classList.toggle("active", (img as HTMLElement).dataset.id === id)
-                }
-              })
-              switcherBtns.forEach((btn) => {
-                if (btn && (btn as HTMLElement).dataset) {
-                  btn.classList.toggle("active", (btn as HTMLElement).dataset.id === id)
-                }
-              })
-            } catch (error) {
-              console.error("Set active product error:", error)
-            }
-          }
-
-          const productObserver = new IntersectionObserver(
-            (entries) => {
-              try {
-                entries.forEach((entry) => {
-                  if (entry.isIntersecting && entry.target) {
-                    const id = (entry.target as HTMLElement).dataset?.id
-                    if (id) setActiveProduct(id)
-                  }
-                })
-              } catch (error) {
-                console.error("Product observer error:", error)
-              }
-            },
-            { threshold: 0.6 },
-          )
-
-          productDetails.forEach((detail) => {
-            if (detail) productObserver.observe(detail)
-          })
-
+        if (switcherBtns.length > 0 && productImages.length > 0 && productDetails.length > 0) {
           switcherBtns.forEach((btn) => {
-            if (btn) {
-              btn.addEventListener("click", () => {
-                try {
-                  const id = btn.getAttribute("data-id")
-                  if (id) {
-                    const targetDetail = document.querySelector(`.product-detail-item[data-id="${id}"]`)
-                    if (targetDetail) {
-                      const targetPosition = (targetDetail as HTMLElement).offsetTop - 200
-                      window.scrollTo({
-                        top: targetPosition,
-                        behavior: "smooth",
-                      })
-                    }
-                  }
-                } catch (error) {
-                  console.error("Switcher button click error:", error)
-                }
-              })
-            }
+            btn.addEventListener("click", () => {
+              try {
+                const targetId = btn.getAttribute("data-id")
+                if (!targetId) return
+
+                // Remove active class from all elements
+                switcherBtns.forEach((b) => b.classList.remove("active"))
+                productImages.forEach((img) => img.classList.remove("active"))
+                productDetails.forEach((detail) => detail.classList.remove("active"))
+
+                // Add active class to clicked elements
+                btn.classList.add("active")
+                const targetImage = document.querySelector(`.product-image[data-id="${targetId}"]`)
+                const targetDetail = document.querySelector(`.product-detail-item[data-id="${targetId}"]`)
+
+                if (targetImage) targetImage.classList.add("active")
+                if (targetDetail) targetDetail.classList.add("active")
+              } catch (error) {
+                console.error("Product switcher error:", error)
+              }
+            })
           })
 
-          // Initialize first product
-          setActiveProduct("1")
+          // Set first item as active by default
+          if (switcherBtns[0]) {
+            switcherBtns[0].classList.add("active")
+          }
+          if (productImages[0]) {
+            productImages[0].classList.add("active")
+          }
+          if (productDetails[0]) {
+            productDetails[0].classList.add("active")
+          }
         }
 
-        // --- Resources Filter Functionality ---
-        const filterButtons = document.querySelectorAll(".filter-btn")
+        // --- Resource Filter Logic ---
+        const filterBtns = document.querySelectorAll(".filter-btn")
         const resourceItems = document.querySelectorAll(".resource-item")
 
-        if (filterButtons.length > 0 && resourceItems.length > 0) {
-          filterButtons.forEach((button) => {
-            if (button) {
-              button.addEventListener("click", () => {
-                try {
-                  const filter = (button as HTMLElement).dataset?.filter
+        if (filterBtns.length > 0 && resourceItems.length > 0) {
+          filterBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+              try {
+                const filter = btn.getAttribute("data-filter")
+                if (!filter) return
 
-                  // Update active button
-                  filterButtons.forEach((btn) => {
-                    if (btn) btn.classList.remove("active")
-                  })
-                  button.classList.add("active")
+                // Remove active class from all filter buttons
+                filterBtns.forEach((b) => b.classList.remove("active"))
+                btn.classList.add("active")
 
-                  // Filter items
-                  resourceItems.forEach((item) => {
-                    if (item) {
-                      const itemType = (item as HTMLElement).dataset?.type
-                      if (filter === "all" || itemType === filter) {
-                        item.classList.remove("hidden")
-                      } else {
-                        item.classList.add("hidden")
-                      }
-                    }
-                  })
-                } catch (error) {
-                  console.error("Filter button click error:", error)
-                }
-              })
-            }
+                // Show/hide items based on filter
+                resourceItems.forEach((item) => {
+                  if (filter === "all" || item.getAttribute("data-type") === filter) {
+                    item.style.display = "block"
+                  } else {
+                    item.style.display = "none"
+                  }
+                })
+              } catch (error) {
+                console.error("Resource filter error:", error)
+              }
+            })
           })
+
+          // Set "all" filter as active by default
+          const allBtn = document.querySelector('.filter-btn[data-filter="all"]')
+          if (allBtn) {
+            allBtn.classList.add("active")
+          }
         }
       } catch (error) {
-        console.error("Error initializing interactions:", error)
+        console.error("Navbar initialization error:", error)
       }
     }
 
-    const timeoutId = setTimeout(initializeInteractions, 200)
+    // Initialize after a short delay to ensure DOM is ready
+    const timeoutId = setTimeout(initializeNavbar, 100)
 
-    // Cleanup function
     return () => {
       clearTimeout(timeoutId)
     }
@@ -207,18 +139,20 @@ export default function HomePage() {
       <div className="cursor"></div>
 
       <header id="navbar">
-        <GlowingEffect>
-          <nav className="navbar-container">
+        <nav className="navbar-container">
+          {/* Left Section - Logo */}
+          <div className="navbar-left">
             <a href="#home" className="logo">
               <img
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cropped-chinsu-logo-2%20%281%29-gY8CQJxjVtrCaoI4Twx7fUpVUGBKFf.png"
                 alt="ChinSu Logo"
               />
             </a>
+          </div>
+
+          {/* Center Section - Navigation Links */}
+          <div className="navbar-center">
             <ul className="nav-links">
-              <li>
-                <a href="#brand-story">Hành Trình</a>
-              </li>
               <li>
                 <a href="#products">Sản Phẩm</a>
               </li>
@@ -226,6 +160,10 @@ export default function HomePage() {
                 <a href="#resources">Tài Nguyên</a>
               </li>
             </ul>
+          </div>
+
+          {/* Right Section - Social Media Icons */}
+          <div className="navbar-right">
             <div className="social-icons">
               <a
                 href="https://www.facebook.com/profile.php?id=61579896609749"
@@ -251,8 +189,8 @@ export default function HomePage() {
               </a>
             </div>
             <ThemeToggle />
-          </nav>
-        </GlowingEffect>
+          </div>
+        </nav>
       </header>
 
       <main>
@@ -271,10 +209,11 @@ export default function HomePage() {
           </div>
         </section>
 
-        <div className="section-padding">
+        {/* Product Showcase */}
+        <section id="products" className="section-padding">
           <div className="container">
             <SparklesText
-              className="section-title"
+              className="section-title text-justify font-sans"
               style={{
                 color: "white",
                 fontSize: "clamp(2.5rem, 5vw, 4rem)",
@@ -287,85 +226,8 @@ export default function HomePage() {
                 letterSpacing: "0.02em",
               }}
             >
-              Hành Trình Vị Giác
+              Tinh Hoa Trong Từng Sản Phẩm
             </SparklesText>
-          </div>
-        </div>
-
-        <section id="brand-story" className="section-padding">
-          <div className="container">
-            <div className="story-container">
-              <div className="timeline">
-                <div className="timeline-progress"></div>
-              </div>
-              <div className="story-point">
-                <div className="story-year">2002</div>
-                <div className="story-content">
-                  <h3>Khởi Nguồn Đam Mê</h3>
-                  <p>Chin-Su ra đời với khát vọng mang gia vị Việt vươn tầm.</p>
-                  <div className="story-image">
-                    <img
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-19%20171055-3p8Px5keiffs9Sj6MKNozU2sYCEbZi.png"
-                      alt="ChinSu Founders"
-                      className="timeline-story-image"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="story-point" style={{ marginLeft: "2 rem" }}>
-                <div className="story-year">2007</div>
-                <div className="story-content">
-                  <h3>Cú Hit Tương Ớt</h3>
-                  <p>Tương ớt Chin-Su trở thành biểu tượng, định nghĩa lại vị cay.</p>
-                  <div className="story-image">
-                    <img
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-19%20171550-x3wcKSuVM5byv0hmuC5hKqEUI5WJHJ.png"
-                      alt="ChinSu Chili Sauce Hit"
-                      className="timeline-story-image"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="story-point">
-                <div className="story-year">2015</div>
-                <div className="story-content">
-                  <h3>Chinh Phục Thế Giới</h3>
-                  <p>Những sản phẩm đầu tiên được xuất khẩu, mang hương vị Việt Nam ra quốc tế.</p>
-                  <div className="story-image" style={{ marginTop: "1rem" }}>
-                    <img
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-19%20171959-iObH6TfMXGT6PmR4FXsGYB1jfqlflq.png"
-                      alt="ChinSu Global Expansion - 131 Countries"
-                      style={{
-                        width: "100%",
-                        maxWidth: "400px",
-                        height: "auto",
-                        borderRadius: "8px",
-                        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="story-point">
-                <div className="story-year">Today</div>
-                <div className="story-content">
-                  <h3>Không Ngừng Sáng Tạo</h3>
-                  <p>Tiếp tục hành trình đổi mới, tạo ra những sản phẩm đầy cảm hứng.</p>
-                  <div className="story-image">
-                    <img
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-4pFKBt0waMFlp2g6iRYLZISJvAorBC.png"
-                      alt="ChinSu Tương Ớt - Đượm vị cay, hứng vị ngon"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="products" className="section-padding">
-          <div className="container">
-            <h2 className="section-title">Tinh Hoa Trong Từng Sản Phẩm</h2>
             <div className="product-showcase-container">
               <div className="product-image-sticky">
                 <div className="product-image-wrapper">
@@ -721,10 +583,166 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        <section className="newsletter-section">
+          <div className="newsletter-container">
+            <h2 className="newsletter-title">SUBSCRIBE TO GET MORE INFO</h2>
+            <p className="newsletter-description">
+              Want the latest and greatest recipes, updates, and more from us, straight to your inbox? Subscribe and get
+              our HOT NEWS!
+            </p>
+            <div className="newsletter-form">
+              <input type="email" placeholder="Enter your email..." className="newsletter-input" />
+              <button className="newsletter-submit">SUBMIT</button>
+            </div>
+          </div>
+        </section>
       </main>
 
-      <footer id="footer">
-        <p>&copy; 2025 ChinSu Foods. A Modern Concept.</p>
+      <footer className="comprehensive-footer">
+        <div className="footer-container">
+          <div className="footer-brand">
+            <img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cropped-chinsu-logo-2%20%281%29-0sgZywhv2fRdlMRqBhIy3rIiOKQZwI.png"
+              alt="ChinSu Logo"
+              className="footer-logo"
+            />
+            <div className="footer-contact">
+              <div className="contact-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                </svg>
+                <span>CHIN-SU store system 1000+ Stores nationwide</span>
+              </div>
+              <div className="contact-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                </svg>
+                <span>Have a chat with us if you need help</span>
+              </div>
+              <div className="contact-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                </svg>
+                <div>
+                  <div>Hotline:</div>
+                  <div>(206) 356-7092 or (425) 589-8788</div>
+                  <div>or (833) 324-4678</div>
+                </div>
+              </div>
+              <div className="contact-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                </svg>
+                <div>
+                  <div>Email:</div>
+                  <div>chinsu-usa@msc.masangroup.com</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="footer-section">
+            <h3>SOCIAL</h3>
+            <ul>
+              <li>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61579896609749"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  FACEBOOK
+                </a>
+              </li>
+              <li>
+                <a href="#" target="_blank" rel="noopener noreferrer">
+                  INSTAGRAM
+                </a>
+              </li>
+              <li>
+                <a href="#" target="_blank" rel="noopener noreferrer">
+                  YOUTUBE
+                </a>
+              </li>
+              <li>
+                <a href="#" target="_blank" rel="noopener noreferrer">
+                  TWITTER
+                </a>
+              </li>
+              <li>
+                <a href="https://www.tiktok.com/@chinsufoods.official" target="_blank" rel="noopener noreferrer">
+                  TIKTOK
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="footer-section">
+            <h3>SHOP</h3>
+            <ul>
+              <li>
+                <a href="#products">ORIGINAL HOT SAUCE</a>
+              </li>
+              <li>
+                <a href="#products">PHỞ HOT SAUCE</a>
+              </li>
+              <li>
+                <a href="#products">CHỈ THIÊN HOT SAUCE</a>
+              </li>
+              <li>
+                <a href="#products">TRUFFLE HOT SAUCE</a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="footer-section">
+            <h3>EXPLORE</h3>
+            <ul>
+              <li>
+                <a href="#about">FIND A STORE</a>
+              </li>
+              <li>
+                <a href="#resources">SUBSCRIPTIONS</a>
+              </li>
+              <li>
+                <a href="#resources">REWARDS</a>
+              </li>
+              <li>
+                <a href="#resources">CHIN-SU KITCHEN</a>
+              </li>
+              <li>
+                <a href="#resources">THE SAUCE</a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="footer-section">
+            <h3>COMPANY</h3>
+            <ul>
+              <li>
+                <a href="#about">CONTACT US</a>
+              </li>
+              <li>
+                <a href="#about">FAQS</a>
+              </li>
+              <li>
+                <a href="#about">RETURNS</a>
+              </li>
+              <li>
+                <a href="#about">PRIVACY POLICY</a>
+              </li>
+              <li>
+                <a href="#about">ACCESSIBILITY</a>
+              </li>
+              <li>
+                <a href="#about">CCPA</a>
+              </li>
+              <li>
+                <a href="#about">TERMS OF USE</a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </footer>
 
       <style jsx>{`
@@ -776,30 +794,85 @@ export default function HomePage() {
         /* --- Navigation Bar --- */
         #navbar {
           position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-          padding: 1.5rem 0;
-          transition: background-color 0.3s ease, padding 0.3s ease;
+          background-color: #5d2e1a;
+          border-top: 2px solid #e52421;
+          border-bottom: 2px solid #e52421;
+          padding: 0;
         }
-        #navbar.scrolled {
-          background-color: rgba(10, 10, 10, 0.8);
-          backdrop-filter: blur(10px); padding: 1rem 0;
-        }
+
         .navbar-container {
-          display: flex; justify-content: space-between; align-items: center;
-          max-width: 1400px; margin: 0 auto; padding: 1rem 2rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 1rem 2rem;
           position: relative;
         }
-        .logo img { height: 45px; transition: height 0.3s ease; }
-        #navbar.scrolled .logo img { height: 40px; }
-        .nav-links { list-style: none; display: flex; }
-        .nav-links li { margin-left: 3rem; }
+
+        .navbar-left,
+        .navbar-center,
+        .navbar-right {
+          flex: 1;
+          display: flex;
+          align-items: center;
+        }
+
+        .navbar-left {
+          justify-content: flex-start;
+        }
+
+        .navbar-center {
+          justify-content: center;
+        }
+
+        .navbar-right {
+          justify-content: flex-end;
+          gap: 1rem;
+        }
+
+        .logo img {
+          height: 45px;
+          transition: height 0.3s ease;
+        }
+
+        .nav-links {
+          list-style: none;
+          display: flex;
+          margin: 0;
+          padding: 0;
+          gap: 3rem;
+        }
+
         .nav-links a {
-          color: #fff; text-decoration: none; font-weight: 500;
-          position: relative; transition: color 0.3s ease;
-        }
-        #navbar.scrolled .nav-links a {
           color: #fff;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 1.1rem;
+          position: relative;
+          transition: color 0.3s ease;
         }
-        .nav-links a:hover { color: var(--primary-red); }
+
+        .nav-links a:hover {
+          color: #ffd700;
+        }
+
+        .social-icons {
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+        }
+
+        .social-icon {
+          color: #fff;
+          transition: color 0.3s ease;
+          padding: 8px;
+          border-radius: 4px;
+        }
+
+        .social-icon:hover {
+          color: #ffd700;
+        }
 
         /* Added theme toggle button styling */
         .theme-toggle-btn {
@@ -1459,6 +1532,362 @@ export default function HomePage() {
 
         .social-icon:hover {
           color: var(--primary-red);
+        }
+
+        /* Adding About Us section styles */
+        .about-hero {
+          position: relative;
+          height: 60vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          margin-bottom: 100px;
+        }
+
+        .about-hero-background {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+        }
+
+        .about-hero-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .about-hero-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.6);
+        }
+
+        .about-hero-content {
+          position: relative;
+          z-index: 2;
+          text-align: center;
+          color: white;
+          max-width: 800px;
+          padding: 0 20px;
+        }
+
+        .about-hero-title {
+          font-size: clamp(2.5rem, 5vw, 4rem);
+          font-weight: 900;
+          margin-bottom: 20px;
+          text-shadow: 0 4px 8px rgba(0,0,0,0.8);
+        }
+
+        .about-hero-subtitle {
+          font-size: 1.2rem;
+          line-height: 1.6;
+          opacity: 0.9;
+        }
+
+        .timeline-container {
+          position: relative;
+          max-width: 1000px;
+          margin: 0 auto 100px;
+          padding: 0 20px;
+        }
+
+        .timeline-line {
+          position: absolute;
+          left: 50%;
+          top: 0;
+          bottom: 0;
+          width: 4px;
+          background: linear-gradient(to bottom, #e52421, #ff6b6b);
+          transform: translateX(-50%);
+        }
+
+        .timeline-event {
+          position: relative;
+          margin-bottom: 80px;
+          display: flex;
+          align-items: center;
+        }
+
+        .timeline-left {
+          justify-content: flex-end;
+        }
+
+        .timeline-right {
+          justify-content: flex-start;
+        }
+
+        .timeline-year {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #e52421;
+          color: white;
+          padding: 10px 20px;
+          border-radius: 25px;
+          font-weight: bold;
+          font-size: 1.1rem;
+          z-index: 2;
+          box-shadow: 0 4px 12px rgba(229, 36, 33, 0.3);
+        }
+
+        .timeline-content {
+          width: 45%;
+          background: white;
+          padding: 30px;
+          border-radius: 15px;
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+          border: 1px solid #f0f0f0;
+        }
+
+        .timeline-left .timeline-content {
+          margin-right: 60px;
+        }
+
+        .timeline-right .timeline-content {
+          margin-left: 60px;
+        }
+
+        .timeline-image {
+          width: 100%;
+          height: 200px;
+          object-fit: cover;
+          border-radius: 10px;
+          margin-bottom: 20px;
+        }
+
+        .timeline-content h3 {
+          font-size: 1.4rem;
+          font-weight: 700;
+          color: #333;
+          margin-bottom: 15px;
+        }
+
+        .timeline-content p {
+          color: #666;
+          line-height: 1.6;
+        }
+
+        .about-philosophy {
+          text-align: center;
+          max-width: 800px;
+          margin: 0 auto 80px;
+          padding: 0 20px;
+        }
+
+        .philosophy-title {
+          font-size: 2.5rem;
+          font-weight: 900;
+          color: #333;
+          margin-bottom: 30px;
+        }
+
+        .philosophy-text {
+          font-size: 1.1rem;
+          line-height: 1.8;
+          color: #555;
+          text-align: justify;
+        }
+
+        .about-closing-image {
+          width: 100%;
+          margin-bottom: 0;
+        }
+
+        .closing-image {
+          width: 100%;
+          height: 400px;
+          object-fit: cover;
+          border-radius: 15px;
+        }
+
+        /* Adding newsletter section styles */
+        .newsletter-section {
+          background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+          padding: 80px 20px;
+          text-align: center;
+        }
+
+        .newsletter-container {
+          max-width: 800px;
+          margin: 0 auto;
+        }
+
+        .newsletter-title {
+          font-size: 2.5rem;
+          font-weight: 900;
+          color: #e52421;
+          margin-bottom: 20px;
+          letter-spacing: 1px;
+        }
+
+        .newsletter-description {
+          font-size: 1.2rem;
+          color: #555;
+          margin-bottom: 40px;
+          line-height: 1.6;
+        }
+
+        .newsletter-form {
+          display: flex;
+          max-width: 500px;
+          margin: 0 auto;
+          border-radius: 50px;
+          overflow: hidden;
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .newsletter-input {
+          flex: 1;
+          padding: 18px 25px;
+          border: none;
+          font-size: 1rem;
+          outline: none;
+          background: white;
+        }
+
+        .newsletter-submit {
+          background: #e52421;
+          color: white;
+          border: none;
+          padding: 18px 35px;
+          font-weight: 700;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: background 0.3s ease;
+        }
+
+        .newsletter-submit:hover {
+          background: #c41e1a;
+        }
+
+        /* Adding comprehensive footer styles */
+        .comprehensive-footer {
+          background: #000;
+          color: white;
+          padding: 60px 0 30px;
+        }
+
+        .footer-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
+          display: grid;
+          grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+          gap: 40px;
+        }
+
+        .footer-brand {
+          padding-right: 40px;
+        }
+
+        .footer-logo {
+          height: 60px;
+          margin-bottom: 30px;
+        }
+
+        .footer-contact {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .contact-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+          color: #ccc;
+          font-size: 0.9rem;
+          line-height: 1.4;
+        }
+
+        .contact-item svg {
+          flex-shrink: 0;
+          margin-top: 2px;
+          opacity: 0.7;
+        }
+
+        .footer-section h3 {
+          color: white;
+          font-size: 1.1rem;
+          font-weight: 700;
+          margin-bottom: 20px;
+          letter-spacing: 1px;
+        }
+
+        .footer-section ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .footer-section li {
+          margin-bottom: 12px;
+        }
+
+        .footer-section a {
+          color: #ccc;
+          text-decoration: none;
+          font-size: 0.9rem;
+          transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+          color: #e52421;
+        }
+
+        @media (max-width: 768px) {
+          .timeline-line {
+            left: 30px;
+          }
+
+          .timeline-event {
+            justify-content: flex-start !important;
+          }
+
+          .timeline-content {
+            width: calc(100% - 80px);
+            margin-left: 60px !important;
+            margin-right: 0 !important;
+          }
+
+          .timeline-year {
+            left: 30px;
+            transform: translateX(-50%);
+          }
+
+          .footer-container {
+            grid-template-columns: 1fr;
+            gap: 30px;
+          }
+
+          .footer-brand {
+            padding-right: 0;
+          }
+
+          .newsletter-form {
+            flex-direction: column;
+            border-radius: 15px;
+          }
+
+          .newsletter-input,
+          .newsletter-submit {
+            border-radius: 0;
+          }
+
+          .newsletter-submit {
+            border-radius: 0 0 15px 15px;
+          }
+
+          .newsletter-input {
+            border-radius: 15px 15px 0 0;
+          }
         }
       `}</style>
     </div>
