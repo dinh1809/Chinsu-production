@@ -1,10 +1,12 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { SparklesText } from "@/components/ui/sparkles-text"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 
 export default function HomePage() {
+  const [activeProductId, setActiveProductId] = useState(1)
+
   useEffect(() => {
     const initializeNavbar = () => {
       try {
@@ -44,47 +46,88 @@ export default function HomePage() {
           })
         })
 
-        // --- Product Switcher Logic ---
-        const switcherBtns = document.querySelectorAll(".switcher-btn")
-        const productImages = document.querySelectorAll(".product-image")
-        const productDetails = document.querySelectorAll(".product-detail-item")
+        setTimeout(() => {
+          try {
+            // Wait for DOM to be fully ready
+            const checkAndInitialize = () => {
+              const switcherBtns = document.querySelectorAll(".switcher-btn")
+              const productImages = document.querySelectorAll(".product-image")
+              const productDetails = document.querySelectorAll(".product-detail-item")
 
-        if (switcherBtns.length > 0 && productImages.length > 0 && productDetails.length > 0) {
-          switcherBtns.forEach((btn) => {
-            btn.addEventListener("click", () => {
-              try {
-                const targetId = btn.getAttribute("data-id")
-                if (!targetId) return
+              console.log("[v0] Product switcher check:", {
+                buttons: switcherBtns.length,
+                images: productImages.length,
+                details: productDetails.length,
+              })
 
-                // Remove active class from all elements
-                switcherBtns.forEach((b) => b.classList.remove("active"))
-                productImages.forEach((img) => img.classList.remove("active"))
-                productDetails.forEach((detail) => detail.classList.remove("active"))
+              // if (switcherBtns.length === 3 && productImages.length === 3 && productDetails.length === 3) {
+              //   // Initialize first product as active
+              //   switcherBtns.forEach((btn) => btn.classList.remove("active"))
+              //   productImages.forEach((img) => img.classList.remove("active"))
+              //   productDetails.forEach((detail) => detail.classList.remove("active"))
 
-                // Add active class to clicked elements
-                btn.classList.add("active")
-                const targetImage = document.querySelector(`.product-image[data-id="${targetId}"]`)
-                const targetDetail = document.querySelector(`.product-detail-item[data-id="${targetId}"]`)
+              //   const firstBtn = document.querySelector('.switcher-btn[data-id="1"]')
+              //   const firstImage = document.querySelector('.product-image[data-id="1"]')
+              //   const firstDetail = document.querySelector('.product-detail-item[data-id="1"]')
 
-                if (targetImage) targetImage.classList.add("active")
-                if (targetDetail) targetDetail.classList.add("active")
-              } catch (error) {
-                console.error("Product switcher error:", error)
-              }
-            })
-          })
+              //   if (firstBtn) firstBtn.classList.add("active")
+              //   if (firstImage) firstImage.classList.add("active")
+              //   if (firstDetail) firstDetail.classList.add("active")
 
-          // Set first item as active by default
-          if (switcherBtns[0]) {
-            switcherBtns[0].classList.add("active")
+              //   console.log("[v0] Initialized first product as active")
+
+              //   // Add click event listeners
+              //   switcherBtns.forEach((btn) => {
+              //     btn.addEventListener("click", (e) => {
+              //       try {
+              //         e.preventDefault()
+              //         e.stopPropagation()
+              //         const targetId = btn.getAttribute("data-id")
+              //         console.log("[v0] Button clicked, switching to product:", targetId)
+
+              //         if (!targetId) return
+
+              //         // Remove active class from all elements
+              //         switcherBtns.forEach((b) => b.classList.remove("active"))
+              //         productImages.forEach((img) => img.classList.remove("active"))
+              //         productDetails.forEach((detail) => detail.classList.remove("active"))
+
+              //         // Add active class to target elements
+              //         btn.classList.add("active")
+              //         const targetImage = document.querySelector(`.product-image[data-id="${targetId}"]`)
+              //         const targetDetail = document.querySelector(`.product-detail-item[data-id="${targetId}"]`)
+
+              //         if (targetImage) {
+              //           targetImage.classList.add("active")
+              //           console.log("[v0] Activated image for product:", targetId)
+              //         } else {
+              //           console.error("[v0] Could not find image for product:", targetId)
+              //         }
+
+              //         if (targetDetail) {
+              //           targetDetail.classList.add("active")
+              //           console.log("[v0] Activated detail for product:", targetId)
+              //         } else {
+              //           console.error("[v0] Could not find detail for product:", targetId)
+              //         }
+              //       } catch (error) {
+              //         console.error("[v0] Product switcher click error:", error)
+              //       }
+              //     })
+              //   })
+
+              //   console.log("[v0] Product switcher initialized successfully")
+              // } else {
+              //   console.log("[v0] Not all elements ready, retrying...")
+              //   setTimeout(checkAndInitialize, 500)
+              // }
+            }
+
+            // checkAndInitialize()
+          } catch (error) {
+            console.error("[v0] Product switcher initialization error:", error)
           }
-          if (productImages[0]) {
-            productImages[0].classList.add("active")
-          }
-          if (productDetails[0]) {
-            productDetails[0].classList.add("active")
-          }
-        }
+        }, 1000)
 
         // --- Resource Filter Logic ---
         const filterBtns = document.querySelectorAll(".filter-btn")
@@ -228,73 +271,135 @@ export default function HomePage() {
             >
               Tinh Hoa Trong Từng Sản Phẩm
             </SparklesText>
-            <div className="product-showcase-container">
-              <div className="product-image-sticky">
-                <div className="product-image-wrapper">
-                  <div className="product-image" data-id="1">
+
+            <div className="product-showcase-two-column">
+              {/* Left Column - Sticky Images */}
+              <div className="product-images-sticky">
+                <div className="product-image-stack">
+                  <div className={`product-large-image ${activeProductId === 1 ? "active" : ""}`} data-id="1">
                     <img
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/thumb-cate-nuoc-tuong-hover-b2I3cyJKcjZ47Skx7p3zgFbJSWKIUs.png"
-                      alt="Nước Tương"
+                      alt="Nước Tương CHIN-SU"
                     />
                   </div>
-                  <div className="product-image" data-id="2">
+                  <div className={`product-large-image ${activeProductId === 2 ? "active" : ""}`} data-id="2">
                     <img
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/thumb-cate-nuoc-mam-hover-z1wRObLHzQdMziPd6qUzr0awnabk9l.png"
-                      alt="Nước Mắm"
+                      alt="Nước Mắm CHIN-SU"
                     />
                   </div>
-                  <div className="product-image" data-id="3">
+                  <div className={`product-large-image ${activeProductId === 3 ? "active" : ""}`} data-id="3">
                     <img
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/thumb-cate-tuong-ot-hover-ZqFKZWrJCbA35r5cl4oL4E9b4NG8uL.png"
-                      alt="Tương Ớt"
+                      alt="Tương Ớt CHIN-SU"
                     />
                   </div>
                 </div>
               </div>
-              <div className="product-details-scroll">
-                <div className="product-switcher">
-                  <button className="switcher-btn" data-id="1">
+
+              {/* Right Column - Scrollable Content */}
+              <div className="product-content-scrollable">
+                {/* Product Switcher */}
+                <div className="product-switcher-horizontal">
+                  <button
+                    className={`switcher-thumbnail ${activeProductId === 1 ? "active" : ""}`}
+                    onClick={() => setActiveProductId(1)}
+                    data-id="1"
+                  >
                     <img
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/thumb-cate-nuoc-tuong-hover-b2I3cyJKcjZ47Skx7p3zgFbJSWKIUs.png"
                       alt="Nước Tương thumbnail"
                     />
                   </button>
-                  <button className="switcher-btn" data-id="2">
+                  <button
+                    className={`switcher-thumbnail ${activeProductId === 2 ? "active" : ""}`}
+                    onClick={() => setActiveProductId(2)}
+                    data-id="2"
+                  >
                     <img
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/thumb-cate-nuoc-mam-hover-z1wRObLHzQdMziPd6qUzr0awnabk9l.png"
                       alt="Nước Mắm thumbnail"
                     />
                   </button>
-                  <button className="switcher-btn" data-id="3">
+                  <button
+                    className={`switcher-thumbnail ${activeProductId === 3 ? "active" : ""}`}
+                    onClick={() => setActiveProductId(3)}
+                    data-id="3"
+                  >
                     <img
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/thumb-cate-tuong-ot-hover-ZqFKZWrJCbA35r5cl4oL4E9b4NG8uL.png"
                       alt="Tương Ớt thumbnail"
                     />
                   </button>
                 </div>
-                <div className="product-detail-item" data-id="1">
-                  <span className="product-tag">Truyền Thống</span>
-                  <h3>Nước Tương Đậm Đà</h3>
-                  <p>
-                    Chắt lọc tinh túy từ hạt đậu nành hảo hạng, ủ theo công nghệ độc quyền, mang đến vị ngon đậm đà, hài
-                    hòa cho mọi món chấm và món kho.
-                  </p>
-                </div>
-                <div className="product-detail-item" data-id="2">
-                  <span className="product-tag">Độc Đáo</span>
-                  <h3>Nước Mắm Cá Cơm</h3>
-                  <p>
-                    Sự kết hợp tiên phong giữa nước mắm cốt truyền thống và tinh chất cá cơm biển đông, tạo ra hương vị
-                    ngọt thanh, sang trọng và giàu dinh dưỡng.
-                  </p>
-                </div>
-                <div className="product-detail-item" data-id="3">
-                  <span className="product-tag">Thanh Ngọt</span>
-                  <h3>Tương Ớt Cay Nồng</h3>
-                  <p>
-                    Sự kết hợp hoàn hảo giữa ớt tươi cay nồng và gia vị truyền thống, tạo ra hương vị đậm đà, kích thích
-                    vị giác. Thích hợp cho mọi món ăn từ nướng, chiên đến chấm.
-                  </p>
+
+                {/* Product Details Stack */}
+                <div className="product-details-stack">
+                  {/* Nước Tương Details */}
+                  <div className={`product-detail-block ${activeProductId === 1 ? "active" : ""}`} data-id="1">
+                    <span className="product-tag traditional">Truyền Thống</span>
+                    <h3 className="product-detail-title">Nước Tương Đậm Đà</h3>
+                    <p className="product-detail-description">
+                      Chắt lọc tinh túy từ hạt đậu nành hảo hạng, ủ theo công nghệ độc quyền, mang đến vị ngon đậm đà,
+                      hài hòa cho mọi món chấm và món kho.
+                    </p>
+                    <a
+                      href="https://shopee.vn/N%C6%B0%E1%BB%9Bc-T%C6%B0%C6%A1ng-CHIN-SU-L%C3%AAn-Men-Nh%E1%BA%ADt-B%E1%BA%A3n-Chai-300ml-i.987373161.20679764417?sp_atk=161319a1-d1b9-4700-b909-9badbe2b5254&xptdk=161319a1-d1b9-4700-b909-9badbe2b5254"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="product-cta-button"
+                      aria-label="Mua ngay Nước Tương CHIN-SU"
+                    >
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                      </svg>
+                      Mua Ngay
+                    </a>
+                  </div>
+
+                  {/* Nước Mắm Details */}
+                  <div className={`product-detail-block ${activeProductId === 2 ? "active" : ""}`} data-id="2">
+                    <span className="product-tag unique">Độc Đáo</span>
+                    <h3 className="product-detail-title">Nước Mắm Cá Cơm</h3>
+                    <p className="product-detail-description">
+                      Được làm từ cá cơm tươi ngon nhất vùng biển Phan Thiết, ủ chượp 365 ngày, tạo nên hương vị đậm đà,
+                      thơm ngon đặc trưng của biển cả.
+                    </p>
+                    <a
+                      href="https://shopee.vn/-Ch%E1%BB%8Dn-lo%E1%BA%A1i-N%C6%B0%E1%BB%9Bc-M%E1%BA%AFm-CHIN-SU-%E1%BB%A6-Ch%C6%B0%E1%BB%A3p-365-Ng%C3%A0y-700ml-i.987373161.42463243730?sp_atk=38f6c0f0-1981-4a5c-8d73-191e721ab549&xptdk=38f6c0f0-1981-4a5c-8d73-191e721ab549"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="product-cta-button"
+                      aria-label="Mua ngay Nước Mắm CHIN-SU"
+                    >
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                      </svg>
+                      Mua Ngay
+                    </a>
+                  </div>
+
+                  {/* Tương Ớt Details */}
+                  <div className={`product-detail-block ${activeProductId === 3 ? "active" : ""}`} data-id="3">
+                    <span className="product-tag spicy">Thanh Ngọt</span>
+                    <h3 className="product-detail-title">Tương Ớt Cay Nồng</h3>
+                    <p className="product-detail-description">
+                      Pha trộn hoàn hảo giữa vị cay nồng của ớt tươi và vị ngọt thanh của đường mía, tạo nên món tương
+                      ớt đậm đà, kích thích vị giác.
+                    </p>
+                    <a
+                      href="https://shopee.vn/Combo-2-T%C6%B0%C6%A1ng-%E1%BB%9Bt-Chin-su-1KG-v%C3%A0-1-Ponnie-HotDog-Gi%C3%B2n-%C4%82n-Li%E1%BB%81n-V%E1%BB%8B-Cay-H%E1%BB%99p-x-20-C%C3%A2y-x-28G-i.987373161.29361870949?sp_atk=56a67cb4-297a-4952-90f4-5e092a9f70d7&xptdk=56a67cb4-297a-4952-90f4-5e092a9f70d7"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="product-cta-button"
+                      aria-label="Mua ngay Tương Ớt CHIN-SU"
+                    >
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                      </svg>
+                      Mua Ngay
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -577,7 +682,7 @@ export default function HomePage() {
               <button className="cta-button">
                 Xem Thêm Nội Dung
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" strokeWidth="2" />
+                  <path d="M5 12h14m-7-7l7 7-7 7l9-11h-7z" stroke="currentColor" strokeWidth="2" />
                 </svg>
               </button>
             </div>
@@ -622,556 +727,354 @@ export default function HomePage() {
               </div>
               <div className="contact-item">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.75-.24 1.02l-2.2 2.2z" />
                 </svg>
-                <div>
-                  <div>Hotline:</div>
-                  <div>(206) 356-7092 or (425) 589-8788</div>
-                  <div>or (833) 324-4678</div>
-                </div>
+                <span>Hotline: (206) 356-7092 or (425) 589-8788 or (833) 324-4678</span>
               </div>
               <div className="contact-item">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                 </svg>
-                <div>
-                  <div>Email:</div>
-                  <div>chinsu-usa@msc.masangroup.com</div>
-                </div>
+                <span>Email: chinsu-usa@msc.masangroup.com</span>
               </div>
             </div>
           </div>
 
-          <div className="footer-section">
-            <h3>SOCIAL</h3>
-            <ul>
-              <li>
-                <a
-                  href="https://www.facebook.com/profile.php?id=61579896609749"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  FACEBOOK
-                </a>
-              </li>
-              <li>
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                  INSTAGRAM
-                </a>
-              </li>
-              <li>
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                  YOUTUBE
-                </a>
-              </li>
-              <li>
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                  TWITTER
-                </a>
-              </li>
-              <li>
-                <a href="https://www.tiktok.com/@chinsufoods.official" target="_blank" rel="noopener noreferrer">
-                  TIKTOK
-                </a>
-              </li>
-            </ul>
-          </div>
+          <div className="footer-columns">
+            <div className="footer-column">
+              <h4>SOCIAL</h4>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=61579896609749"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    FACEBOOK
+                  </a>
+                </li>
+                <li>
+                  <a href="#" target="_blank" rel="noopener noreferrer">
+                    INSTAGRAM
+                  </a>
+                </li>
+                <li>
+                  <a href="#" target="_blank" rel="noopener noreferrer">
+                    YOUTUBE
+                  </a>
+                </li>
+                <li>
+                  <a href="#" target="_blank" rel="noopener noreferrer">
+                    TWITTER
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.tiktok.com/@chinsufoods.official" target="_blank" rel="noopener noreferrer">
+                    TIKTOK
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-          <div className="footer-section">
-            <h3>SHOP</h3>
-            <ul>
-              <li>
-                <a href="#products">ORIGINAL HOT SAUCE</a>
-              </li>
-              <li>
-                <a href="#products">PHỞ HOT SAUCE</a>
-              </li>
-              <li>
-                <a href="#products">CHỈ THIÊN HOT SAUCE</a>
-              </li>
-              <li>
-                <a href="#products">TRUFFLE HOT SAUCE</a>
-              </li>
-            </ul>
-          </div>
+            <div className="footer-column">
+              <h4>SHOP</h4>
+              <ul>
+                <li>
+                  <a href="#products">ORIGINAL HOT SAUCE</a>
+                </li>
+                <li>
+                  <a href="#products">PHỞ HOT SAUCE</a>
+                </li>
+                <li>
+                  <a href="#products">CHỈ THIÊN HOT SAUCE</a>
+                </li>
+                <li>
+                  <a href="#products">TRUFFLE HOT SAUCE</a>
+                </li>
+              </ul>
+            </div>
 
-          <div className="footer-section">
-            <h3>EXPLORE</h3>
-            <ul>
-              <li>
-                <a href="#about">FIND A STORE</a>
-              </li>
-              <li>
-                <a href="#resources">SUBSCRIPTIONS</a>
-              </li>
-              <li>
-                <a href="#resources">REWARDS</a>
-              </li>
-              <li>
-                <a href="#resources">CHIN-SU KITCHEN</a>
-              </li>
-              <li>
-                <a href="#resources">THE SAUCE</a>
-              </li>
-            </ul>
-          </div>
+            <div className="footer-column">
+              <h4>EXPLORE</h4>
+              <ul>
+                <li>
+                  <a href="#resources">FIND A STORE</a>
+                </li>
+                <li>
+                  <a href="#resources">SUBSCRIPTIONS</a>
+                </li>
+                <li>
+                  <a href="#resources">REWARDS</a>
+                </li>
+                <li>
+                  <a href="#resources">CHIN-SU KITCHEN</a>
+                </li>
+                <li>
+                  <a href="#resources">THE SAUCE</a>
+                </li>
+              </ul>
+            </div>
 
-          <div className="footer-section">
-            <h3>COMPANY</h3>
-            <ul>
-              <li>
-                <a href="#about">CONTACT US</a>
-              </li>
-              <li>
-                <a href="#about">FAQS</a>
-              </li>
-              <li>
-                <a href="#about">RETURNS</a>
-              </li>
-              <li>
-                <a href="#about">PRIVACY POLICY</a>
-              </li>
-              <li>
-                <a href="#about">ACCESSIBILITY</a>
-              </li>
-              <li>
-                <a href="#about">CCPA</a>
-              </li>
-              <li>
-                <a href="#about">TERMS OF USE</a>
-              </li>
-            </ul>
+            <div className="footer-column">
+              <h4>COMPANY</h4>
+              <ul>
+                <li>
+                  <a href="#resources">CONTACT US</a>
+                </li>
+                <li>
+                  <a href="#resources">FAQS</a>
+                </li>
+                <li>
+                  <a href="#resources">RETURNS</a>
+                </li>
+                <li>
+                  <a href="#resources">PRIVACY POLICY</a>
+                </li>
+                <li>
+                  <a href="#resources">ACCESSIBILITY</a>
+                </li>
+                <li>
+                  <a href="#resources">CCPA</a>
+                </li>
+                <li>
+                  <a href="#resources">TERMS OF USE</a>
+                </li>
+              </ul>
+            </div>
           </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>&copy; 2025 ChinSu. All rights reserved.</p>
         </div>
       </footer>
 
       <style jsx>{`
-        :root {
-          --primary-red: #E52421;
-          --secondary-black: #0a0a0a;
-          --accent-yellow: #FFC107;
-          --text-white: #f5f5f5;
-          --bg-dark-grey: #111111;
-          --transition-speed: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        /* Added comprehensive CSS styling for all components */
+        .cursor {
+          position: fixed;
+          width: 20px;
+          height: 20px;
+          background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 9999;
+          mix-blend-mode: difference;
+          transition: transform 0.1s ease;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-          font-family: 'Be Vietnam Pro', sans-serif;
-          background-color: var(--secondary-black);
-          color: var(--text-white);
-          line-height: 1.6;
-          overflow-x: hidden;
+        /* Dark mode styles */
+        .dark {
+          background-color: #0a0a0a !important;
+          color: #ffffff !important;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-        .section-padding { padding: 120px 0; }
-        .section-title {
-          font-size: clamp(2.5rem, 5vw, 4rem);
-          font-weight: 900;
-          text-align: center;
-          margin-bottom: 80px;
+        .dark .section-padding {
+          background-color: #0a0a0a !important;
         }
 
-        /* --- Custom Cursor --- */
-        .cursor { display: none; }
-        @media (pointer: fine) {
-          .cursor {
-            display: block; position: fixed; width: 20px; height: 20px;
-            border: 1px solid var(--text-white); border-radius: 50%;
-            left: 0; top: 0; pointer-events: none;
-            transform: translate(-50%, -50%); z-index: 9999;
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-          }
-          .cursor.hovered {
-            width: 50px; height: 50px;
-            background-color: rgba(229, 36, 33, 0.2);
-            border-color: var(--primary-red);
-          }
+        .dark .container {
+          background-color: transparent !important;
         }
 
-        /* --- Navigation Bar --- */
+        /* Navbar Styles */
         #navbar {
-          position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-          background-color: #5d2e1a;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 1000;
+          background: linear-gradient(135deg, #5d2e1a 0%, #4a2416 100%);
           border-top: 2px solid #e52421;
           border-bottom: 2px solid #e52421;
-          padding: 0;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(10px);
         }
 
         .navbar-container {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          max-width: 1400px;
-          margin: 0 auto;
           padding: 1rem 2rem;
-          position: relative;
+          max-width: 1200px;
+          margin: 0 auto;
         }
 
-        .navbar-left,
-        .navbar-center,
-        .navbar-right {
-          flex: 1;
+        .navbar-left .logo img {
+          height: 40px;
+          width: auto;
+        }
+
+        .navbar-center .nav-links {
           display: flex;
-          align-items: center;
-        }
-
-        .navbar-left {
-          justify-content: flex-start;
-        }
-
-        .navbar-center {
-          justify-content: center;
-        }
-
-        .navbar-right {
-          justify-content: flex-end;
-          gap: 1rem;
-        }
-
-        .logo img {
-          height: 45px;
-          transition: height 0.3s ease;
-        }
-
-        .nav-links {
           list-style: none;
-          display: flex;
           margin: 0;
           padding: 0;
           gap: 3rem;
         }
 
-        .nav-links a {
-          color: #fff;
+        .navbar-center .nav-links a {
+          color: white;
           text-decoration: none;
           font-weight: 600;
           font-size: 1.1rem;
-          position: relative;
           transition: color 0.3s ease;
         }
 
-        .nav-links a:hover {
+        .navbar-center .nav-links a:hover {
           color: #ffd700;
+        }
+
+        .navbar-right {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
         }
 
         .social-icons {
           display: flex;
           gap: 1rem;
-          align-items: center;
         }
 
         .social-icon {
-          color: #fff;
+          color: white;
           transition: color 0.3s ease;
-          padding: 8px;
-          border-radius: 4px;
         }
 
         .social-icon:hover {
           color: #ffd700;
         }
 
-        /* Added theme toggle button styling */
-        .theme-toggle-btn {
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 8px;
-          padding: 8px;
-          color: white;
-          cursor: pointer;
-          transition: all 0.3s ease;
+        /* Hero Section */
+        #home {
+          position: relative;
+          height: 100vh;
+          overflow: hidden;
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-left: 1rem;
         }
 
-        .theme-toggle-btn:hover {
-          background: rgba(255, 255, 255, 0.2);
-          border-color: rgba(255, 255, 255, 0.3);
-          transform: scale(1.05);
-        }
-
-        /* Enhanced dark mode styles for better visibility */
-        .dark {
-          --bg-color: #0a0a0a;
-          --text-color: #ffffff;
-          --card-bg: #1a1a1a;
-          --border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .dark body {
-          background-color: var(--bg-color) !important;
-          color: var(--text-color) !important;
-        }
-
-        .dark .section-padding {
-          background-color: var(--bg-color) !important;
-        }
-
-        .dark .blog-card {
-          background-color: var(--card-bg) !important;
-          border-color: var(--border-color) !important;
-          color: var(--text-color) !important;
-        }
-
-        .dark .product-showcase-container {
-          background-color: var(--bg-color) !important;
-        }
-
-        .dark .newsletter-section {
-          background-color: var(--card-bg) !important;
-        }
-
-        .dark .footer-section {
-          background-color: #000000 !important;
-        }
-
-        /* --- Hero Section --- */
-        #home {
-          height: 100vh; display: flex; justify-content: center; align-items: center;
-          position: relative; overflow: hidden;
-        }
-        /* Updated background styling for image instead of video */
-        .image-background { 
-          position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; 
-        }
-        .background-image { 
-          width: 100%; height: 100%; object-fit: cover; object-position: center;
-        }
-        #home::after {
-          content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-          background: linear-gradient(to top, var(--secondary-black) 5%, transparent 50%); z-index: -1;
-        }
-
-        .hero-content h1 {
-          font-size: clamp(3rem, 8vw, 7rem); font-weight: 900; 
-          /* updated to white color with black shadow for better contrast */
-          color: white;
-          text-shadow: 2px 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5); 
-          transform: scale(1.1); opacity: 0;
-          animation: hero-fade-in 1.5s cubic-bezier(0.23, 1, 0.32, 1) 0.5s forwards;
-        }
-        @keyframes hero-fade-in { to { transform: scale(1); opacity: 1; } }
-
-        /* --- Brand Story (Scrollytelling) --- */
-        #brand-story { position: relative; padding-bottom: 200px; }
-        .timeline {
-          position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
-          background-color: #333; transform: translateX(-50%);
-        }
-        .timeline-progress { width: 100%; height: 0; background-color: var(--primary-red); transition: height 0.1s linear; }
-        .story-point {
-          position: relative; margin-bottom: 20vh; width: 45%;
-          opacity: 0; transform: translateY(50px);
-          transition: opacity 0.8s ease, transform 0.8s ease;
-          display: flex;
-          align-items: center;
-        }
-        .story-point.is-visible { opacity: 1; transform: translateY(0); }
-        .story-point:nth-child(odd) { left: 0; padding-right: 5%; text-align: right; }
-        .story-point:nth-child(even) { left: 55%; flex-direction: row-reverse; }
-        .story-point::after {
-          content: ''; position: absolute; top: 10px; width: 12px; height: 12px;
-          border-radius: 50%; background-color: var(--bg-dark-grey); border: 2px solid var(--primary-red);
-        }
-        .story-point:nth-child(odd)::after { right: -31px; transform: translateX(50%); }
-        .story-point:nth-child(even)::after { left: -31px; transform: translateX(-50%); }
-        .story-year { font-size: 2rem; font-weight: 900; color: var(--primary-red); }
-        .story-content h3 { font-size: 1.5rem; margin: 10px 0; }
-        .story-content p { color: #ccc; }
-        .story-image-point {
-          justify-content: flex-end;
-        }
-        .story-image {
-          max-width: 300px;
-          animation: float 3s ease-in-out infinite;
-          margin-top: 2rem;
-        }
-        .story-image img {
-          width: 100%;
-          height: auto;
-          filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
-          border-radius: 16px;
-        }
-        .timeline-image {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 300px;
-          height: auto;
-          max-height: 80%;
-          object-fit: contain;
-          animation: float 3s ease-in-out infinite;
-        }
-        .timeline-image-left {
-          left: -31px;
-          transform: translateY(-50%) translateX(-50%);
-        }
-        /* added right side positioning for timeline images */
-        .timeline-image-right {
-          right: -31px;
-          transform: translateY(-50%) translateX(50%);
-        }
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-        }
-
-        /* --- Sticky Product Showcase --- */
-        #products { background-color: var(--bg-dark-grey); }
-        .product-showcase-container { display: flex; gap: 5%; }
-        .product-image-sticky {
-          width: 45%; position: sticky; top: 120px; height: 70vh;
-          perspective: 1500px;
-        }
-        .product-image-wrapper {
-          width: 100%; height: 100%; position: relative;
-          /* Added fallback color for yellow border to fix production visibility */
-          border: 2px solid #FFC107;
-          border: 2px solid var(--accent-yellow, #FFC107);
-          border-radius: 20px;
-          overflow: hidden;
-          transform-style: preserve-3d;
-        }
-        .product-image {
-          position: absolute; width: 100%; height: 100%;
-          display: flex; justify-content: center; align-items: center;
-          backface-visibility: hidden;
-          transition: opacity 0.6s ease;
-          opacity: 0;
-          /* Added fallback color for yellow border to fix production visibility */
-          border: 3px solid #FFC107;
-          border: 3px solid var(--accent-yellow, #FFC107);
-          border-radius: 15px;
-        }
-        .product-image[data-id="1"] {
-          opacity: 1;
-        }
-        .product-image.active {
-          opacity: 1;
-        }
-        .product-image img { max-width: 80%; max-height: 80%; object-fit: contain; }
-
-        .product-details-scroll { width: 50%; }
-        .product-detail-item {
-          min-height: 80vh; display: flex; flex-direction: column;
-          justify-content: center; padding: 2rem 0;
-        }
-        .product-detail-item h3 { font-size: 3rem; color: var(--text-white); }
-        .product-detail-item p { font-size: 1.1rem; color: #ccc; margin: 20px 0; }
-        .product-tag {
-          display: inline-block; padding: 5px 15px; 
-          /* Added fallback color for production deployment */
-          background-color: #e52421; /* Fallback red color */
-          background-color: var(--primary-red, #e52421); /* CSS custom property with fallback */
-          border-radius: 20px; font-size: 0.9rem; margin-bottom: 15px;
-          color: white; /* Ensure text is visible on red background */
-        }
-        
-        /* --- Interactive Switcher --- */
-        .product-switcher {
-          position: sticky;
-          top: 120px;
-          padding: 20px 0;
-          z-index: 10;
-        }
-        .switcher-btn {
-          background: var(--bg-dark-grey);
-          border: 2px solid #444;
-          border-radius: 10px;
-          padding: 10px;
-          margin-right: 15px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          font-weight: 500;
-          position: relative;
-          overflow: hidden;
-        }
-        .switcher-btn:hover {
-          transform: translateY(-5px);
-          border-color: var(--accent-yellow, #FFC107);
-        }
-        .switcher-btn.active {
-          border-color: var(--primary-red, #e52421);
-          transform: translateY(-5px) scale(1.1);
-          box-shadow: 0 0 15px rgba(229, 36, 33, 0.5);
-        }
-        .switcher-btn img {
-          width: 50px;
-          height: 50px;
-          object-fit: contain;
-        }
-
-        /* --- Modern Resources Section --- */
-        #resources {
-          background: linear-gradient(135deg, var(--bg-dark-grey) 0%, #1a1a1a 100%);
-          position: relative;
-        }
-
-        #resources::before {
-          content: '';
+        .image-background {
           position: absolute;
           top: 0;
           left: 0;
-          right: 0;
-          height: 200px;
-          background: linear-gradient(180deg, transparent 0%, rgba(26, 26, 26, 0.7) 100%);
-          pointer-events: none;
+          width: 100%;
+          height: 100%;
           z-index: 1;
         }
 
+        .background-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .hero-content {
+          position: relative;
+          z-index: 2;
+          text-align: center;
+          color: white;
+        }
+
+        .hero-shape-bg {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, rgba(229, 36, 33, 0.3) 0%, transparent 70%);
+          border-radius: 50%;
+          animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+          50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.4; }
+        }
+
+        /* Section Styles */
+        .section-padding {
+          padding: 100px 0;
+          background-color: #0a0a0a;
+        }
+
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 2rem;
+        }
+
+        .section-title {
+          font-size: 3.5rem;
+          font-weight: 900;
+          text-align: center;
+          margin-bottom: 4rem;
+          color: white;
+        }
+
+        /* Resources Section */
         .resources-hero {
           text-align: center;
-          margin-bottom: 60px;
-          position: relative;
-          z-index: 10;
+          margin-bottom: 4rem;
+        }
+
+        .resources-subtitle {
+          font-size: 1.3rem;
+          color: #e0e0e0;
+          margin-top: 1rem;
+        }
+
+        .resources-filter {
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+          margin-bottom: 3rem;
+          flex-wrap: wrap;
+        }
+
+        .filter-btn {
+          padding: 0.75rem 1.5rem;
+          border: 2px solid #333;
+          background: transparent;
+          color: white;
+          border-radius: 25px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-weight: 500;
+        }
+
+        .filter-btn:hover {
+          border-color: #FFC107;
+          color: #FFC107;
+        }
+
+        .filter-btn.active {
+          background: #e52421;
+          border-color: #e52421;
+          color: white;
         }
 
         .resources-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-          gap: 30px;
-          margin-bottom: 60px;
+          gap: 2rem;
+          margin-bottom: 3rem;
         }
 
         .resource-item {
-          background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
-          border-radius: 20px;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 16px;
           overflow: hidden;
-          transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-          border: 1px solid #333;
-          position: relative;
-        }
-
-        .resource-item::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(229, 36, 33, 0.1));
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          pointer-events: none;
-        }
-
-        .resource-item:hover::before {
-          opacity: 1;
+          transition: all 0.3s ease;
+          border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .resource-item:hover {
           transform: translateY(-10px) scale(1.02);
-          border-color: var(--accent-yellow, #FFC107);
+          border-color: #FFC107;
           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 193, 7, 0.2);
-        }
-
-        .resource-item.hidden {
-          display: none;
         }
 
         .card-image {
@@ -1184,567 +1087,152 @@ export default function HomePage() {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.4s ease;
-        }
-
-        .resource-item:hover .card-image img {
-          transform: scale(1.1);
         }
 
         .card-overlay {
           position: absolute;
-          top: 15px;
-          left: 15px;
-          right: 15px;
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
+          top: 1rem;
+          left: 1rem;
         }
 
         .card-category {
-          background: linear-gradient(135deg, var(--primary-red), #ff4444);
+          background: rgba(229, 36, 33, 0.9);
           color: white;
-          padding: 6px 12px;
-          border-radius: 15px;
+          padding: 0.25rem 0.75rem;
+          border-radius: 12px;
           font-size: 0.8rem;
           font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-
-        .recipe-stats {
-          display: flex;
-          flex-direction: column;
-          gap: 5px;
-          align-items: flex-end;
-        }
-
-        .recipe-stats span {
-          background: rgba(0, 0, 0, 0.7);
-          color: white;
-          padding: 4px 8px;
-          border-radius: 10px;
-          font-size: 0.75rem;
-          backdrop-filter: blur(10px);
         }
 
         .card-content {
-          padding: 25px;
+          padding: 1.5rem;
         }
 
         .card-content h3 {
           font-size: 1.3rem;
           font-weight: 700;
-          margin-bottom: 12px;
-          color: var(--text-white);
-          line-height: 1.3;
+          color: white;
+          margin-bottom: 0.75rem;
         }
 
         .card-content p {
-          color: #ccc;
+          color: #e0e0e0;
           line-height: 1.6;
-          margin-bottom: 15px;
+          margin-bottom: 1rem;
         }
 
         .card-meta {
           display: flex;
-          justify-content: space-between;
-          align-items: center;
-          font-size: 0.85rem;
-          color: #888;
+          gap: 1rem;
+          margin-bottom: 1rem;
         }
 
-        .read-time, .views {
-          color: var(--accent-yellow, #FFC107);
-          font-weight: 500;
+        .read-time, .views, .podcast-duration, .podcast-views, .tip-type {
+          color: #FFC107;
+          font-size: 0.9rem;
+          font-weight: 600;
         }
 
-        /* Video Card Specific Styles */
-        .video-wrapper {
+        .publish-date, .channel, .usefulness {
+          color: #ccc;
+          font-size: 0.9rem;
+        }
+
+        .read-more-btn {
+          display: inline-block;
+          color: #FFC107;
+          text-decoration: none;
+          font-weight: 600;
+          transition: color 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+          color: white;
+        }
+
+        .video-wrapper, .podcast-video-wrapper {
           position: relative;
+          width: 100%;
           height: 225px;
         }
 
-        .video-placeholder {
-          position: relative;
+        .podcast-video-wrapper {
+          height: 315px;
+        }
+
+        .video-wrapper iframe, .podcast-video-wrapper iframe {
           width: 100%;
           height: 100%;
-          cursor: pointer;
-        }
-
-        .play-button {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 60px;
-          height: 60px;
-          background: linear-gradient(135deg, var(--primary-red), #ff4444);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          transition: all 0.3s ease;
-          box-shadow: 0 4px 15px rgba(229, 36, 33, 0.4);
-        }
-
-        .play-button:hover {
-          transform: translate(-50%, -50%) scale(1.1);
-          box-shadow: 0 6px 20px rgba(229, 36, 33, 0.6);
-        }
-
-        .video-duration {
-          position: absolute;
-          bottom: 10px;
-          right: 10px;
-          background: rgba(0, 0, 0, 0.8);
-          color: white;
-          padding: 4px 8px;
-          border-radius: 8px;
-          font-size: 0.75rem;
-          font-weight: 500;
-        }
-
-        /* Recipe Card Specific Styles */
-        .recipe-difficulty {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .difficulty {
-          padding: 4px 12px;
-          border-radius: 12px;
-          font-size: 0.75rem;
-          font-weight: 600;
-          text-transform: uppercase;
-        }
-
-        .difficulty.easy {
-          background: linear-gradient(135deg, #4CAF50, #66BB6A);
-          color: white;
-        }
-
-        .difficulty.medium {
-          background: linear-gradient(135deg, #FF9800, #FFB74D);
-          color: white;
-        }
-
-        .rating {
-          color: var(--accent-yellow, #FFC107);
-          font-size: 0.85rem;
-        }
-
-        /* Tips Card Specific Styles */
-        .tips-card {
-          display: flex;
-          align-items: center;
-          padding: 25px;
-          min-height: 140px;
+          border: none;
         }
 
         .tips-icon {
-          flex-shrink: 0;
-          width: 60px;
-          height: 60px;
-          background: linear-gradient(135deg, var(--accent-yellow), #FFD54F);
-          border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #333;
-          margin-right: 20px;
+          width: 60px;
+          height: 60px;
+          background: linear-gradient(135deg, #e52421, #ff4444);
+          border-radius: 50%;
+          margin-bottom: 1rem;
+          color: white;
         }
 
         .tips-meta {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-top: 10px;
         }
 
-        .tip-type {
-          background: linear-gradient(135deg, #333, #444);
-          color: var(--accent-yellow, #FFC107);
-          padding: 4px 10px;
-          border-radius: 10px;
-          font-size: 0.75rem;
-          font-weight: 600;
-        }
-
-        .usefulness {
-          color: #4CAF50;
-          font-size: 0.85rem;
-          font-weight: 500;
-        }
-
-        /* Podcast Card Specific Styles */
-        .podcast-video-wrapper {
-          position: relative;
-          width: 100%;
-          height: 315px;
-          border-radius: 15px;
-          overflow: hidden;
-        }
-
-        .podcast-video-wrapper iframe {
-          width: 100%;
-          height: 100%;
-          border: none;
-          border-radius: 15px;
-        }
-
-        .podcast-meta {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          font-size: 0.85rem;
-          color: #888;
-        }
-
-        .podcast-duration, .podcast-views {
-          color: var(--accent-yellow, #FFC107);
-          font-weight: 500;
-        }
-
-        /* CTA Section */
         .resources-cta {
           text-align: center;
         }
 
         .cta-button {
-          background: linear-gradient(135deg, var(--primary-red), #ff4444);
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: linear-gradient(135deg, #e52421, #ff4444);
           color: white;
+          padding: 1rem 2rem;
           border: none;
-          padding: 15px 30px;
           border-radius: 25px;
           font-size: 1.1rem;
           font-weight: 600;
           cursor: pointer;
           transition: all 0.3s ease;
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .cta-button::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-          transition: left 0.5s ease;
-        }
-
-        .cta-button:hover::before {
-          left: 100%;
         }
 
         .cta-button:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 10px 25px rgba(229, 36, 33, 0.4);
+          transform: translateY(-2px);
+          box-shadow: 0 10px 25px rgba(229, 36, 33, 0.3);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-          .resources-grid {
-            grid-template-columns: 1fr;
-            gap: 20px;
-          }
-          
-          .filter-btn {
-            padding: 10px 18px;
-            font-size: 0.9rem;
-          }
-          
-          .tips-card {
-            flex-direction: column;
-            text-align: center;
-          }
-          
-          .tips-icon {
-            margin-right: 0;
-            margin-bottom: 15px;
-          }
-        }
-
-        /* Added styles for hero text container and shape background */
-        .hero-text-container {
-          position: relative;
-          display: inline-block;
-        }
-        
-        .hero-shape-bg {
-          position: absolute;
-          top: -1rem;
-          left: 1rem;
-          width: 300px;
-          height: 80px;
-          background: linear-gradient(135deg, rgba(213, 0, 0, 0.3) 0%, rgba(255, 215, 0, 0.2) 100%);
-          border-radius: 50px 20px 50px 20px;
-          transform: rotate(-2deg);
-          z-index: -1;
-          filter: blur(1px);
-        }
-
-        .text-accent-yellow {
-          color: var(--accent-yellow, #FFC107);
-        }
-
-        .text-accent-yellow:hover {
-          text-decoration: underline;
-        }
-
-        /* --- Resources Filter --- */
-        .resources-filter {
-          display: flex;
-          justify-content: center;
-          gap: 1rem;
-          margin-bottom: 2rem;
-          flex-wrap: wrap;
-        }
-
-        .filter-btn {
-          padding: 10px 18px;
-          font-size: 0.9rem;
-          background: transparent;
-          border: 2px solid #ddd;
-          border-radius: 25px;
-          color: #666;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          white-space: nowrap;
-          margin: 0 4px;
-        }
-
-        .filter-btn:hover {
-          border-color: #dc2626;
-          color: #dc2626;
-        }
-
-        .filter-btn.active {
-          background: #dc2626;
-          border-color: #dc2626;
-          color: white;
-        }
-
-        /* Social Icons */
-        .social-icons {
-          display: flex;
-          gap: 1rem;
-        }
-
-        .social-icon {
-          color: #fff;
-          transition: color 0.3s ease;
-        }
-
-        .social-icon:hover {
-          color: var(--primary-red);
-        }
-
-        /* Adding About Us section styles */
-        .about-hero {
-          position: relative;
-          height: 60vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-          margin-bottom: 100px;
-        }
-
-        .about-hero-background {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: 1;
-        }
-
-        .about-hero-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-
-        .about-hero-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.6);
-        }
-
-        .about-hero-content {
-          position: relative;
-          z-index: 2;
-          text-align: center;
-          color: white;
-          max-width: 800px;
-          padding: 0 20px;
-        }
-
-        .about-hero-title {
-          font-size: clamp(2.5rem, 5vw, 4rem);
-          font-weight: 900;
-          margin-bottom: 20px;
-          text-shadow: 0 4px 8px rgba(0,0,0,0.8);
-        }
-
-        .about-hero-subtitle {
-          font-size: 1.2rem;
-          line-height: 1.6;
-          opacity: 0.9;
-        }
-
-        .timeline-container {
-          position: relative;
-          max-width: 1000px;
-          margin: 0 auto 100px;
-          padding: 0 20px;
-        }
-
-        .timeline-line {
-          position: absolute;
-          left: 50%;
-          top: 0;
-          bottom: 0;
-          width: 4px;
-          background: linear-gradient(to bottom, #e52421, #ff6b6b);
-          transform: translateX(-50%);
-        }
-
-        .timeline-event {
-          position: relative;
-          margin-bottom: 80px;
-          display: flex;
-          align-items: center;
-        }
-
-        .timeline-left {
-          justify-content: flex-end;
-        }
-
-        .timeline-right {
-          justify-content: flex-start;
-        }
-
-        .timeline-year {
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          background: #e52421;
-          color: white;
-          padding: 10px 20px;
-          border-radius: 25px;
-          font-weight: bold;
-          font-size: 1.1rem;
-          z-index: 2;
-          box-shadow: 0 4px 12px rgba(229, 36, 33, 0.3);
-        }
-
-        .timeline-content {
-          width: 45%;
-          background: white;
-          padding: 30px;
-          border-radius: 15px;
-          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-          border: 1px solid #f0f0f0;
-        }
-
-        .timeline-left .timeline-content {
-          margin-right: 60px;
-        }
-
-        .timeline-right .timeline-content {
-          margin-left: 60px;
-        }
-
-        .timeline-image {
-          width: 100%;
-          height: 200px;
-          object-fit: cover;
-          border-radius: 10px;
-          margin-bottom: 20px;
-        }
-
-        .timeline-content h3 {
-          font-size: 1.4rem;
-          font-weight: 700;
-          color: #333;
-          margin-bottom: 15px;
-        }
-
-        .timeline-content p {
-          color: #666;
-          line-height: 1.6;
-        }
-
-        .about-philosophy {
-          text-align: center;
-          max-width: 800px;
-          margin: 0 auto 80px;
-          padding: 0 20px;
-        }
-
-        .philosophy-title {
-          font-size: 2.5rem;
-          font-weight: 900;
-          color: #333;
-          margin-bottom: 30px;
-        }
-
-        .philosophy-text {
-          font-size: 1.1rem;
-          line-height: 1.8;
-          color: #555;
-          text-align: justify;
-        }
-
-        .about-closing-image {
-          width: 100%;
-          margin-bottom: 0;
-        }
-
-        .closing-image {
-          width: 100%;
-          height: 400px;
-          object-fit: cover;
-          border-radius: 15px;
-        }
-
-        /* Adding newsletter section styles */
+        /* Newsletter Section */
         .newsletter-section {
-          background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-          padding: 80px 20px;
-          text-align: center;
+          background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+          padding: 4rem 0;
         }
 
         .newsletter-container {
           max-width: 800px;
           margin: 0 auto;
+          text-align: center;
+          padding: 0 2rem;
         }
 
         .newsletter-title {
           font-size: 2.5rem;
           font-weight: 900;
-          color: #e52421;
-          margin-bottom: 20px;
+          color: #8B4513;
+          margin-bottom: 1rem;
           letter-spacing: 1px;
         }
 
         .newsletter-description {
-          font-size: 1.2rem;
-          color: #555;
-          margin-bottom: 40px;
+          font-size: 1.1rem;
+          color: #333;
+          margin-bottom: 2rem;
           line-height: 1.6;
         }
 
@@ -1754,12 +1242,12 @@ export default function HomePage() {
           margin: 0 auto;
           border-radius: 50px;
           overflow: hidden;
-          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .newsletter-input {
           flex: 1;
-          padding: 18px 25px;
+          padding: 1rem 1.5rem;
           border: none;
           font-size: 1rem;
           outline: none;
@@ -1767,140 +1255,347 @@ export default function HomePage() {
         }
 
         .newsletter-submit {
-          background: #e52421;
+          background: #8B4513;
           color: white;
           border: none;
-          padding: 18px 35px;
-          font-weight: 700;
+          padding: 1rem 2rem;
           font-size: 1rem;
+          font-weight: 600;
           cursor: pointer;
           transition: background 0.3s ease;
         }
 
         .newsletter-submit:hover {
-          background: #c41e1a;
+          background: #a0522d;
         }
 
-        /* Adding comprehensive footer styles */
+        /* Footer Styles */
         .comprehensive-footer {
           background: #000;
           color: white;
-          padding: 60px 0 30px;
+          padding: 3rem 0 1rem;
         }
 
         .footer-container {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 0 20px;
+          padding: 0 2rem;
           display: grid;
-          grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-          gap: 40px;
+          grid-template-columns: 1fr 2fr;
+          gap: 3rem;
         }
 
         .footer-brand {
-          padding-right: 40px;
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
         }
 
         .footer-logo {
           height: 60px;
-          margin-bottom: 30px;
+          width: auto;
         }
 
         .footer-contact {
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 1rem;
         }
 
         .contact-item {
           display: flex;
-          align-items: flex-start;
-          gap: 12px;
+          align-items: center;
+          gap: 0.75rem;
           color: #ccc;
-          font-size: 0.9rem;
-          line-height: 1.4;
         }
 
         .contact-item svg {
+          color: #e52421;
           flex-shrink: 0;
-          margin-top: 2px;
-          opacity: 0.7;
         }
 
-        .footer-section h3 {
+        .footer-columns {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 2rem;
+        }
+
+        .footer-column h4 {
           color: white;
           font-size: 1.1rem;
           font-weight: 700;
-          margin-bottom: 20px;
-          letter-spacing: 1px;
+          margin-bottom: 1rem;
+          border-bottom: 2px solid #e52421;
+          padding-bottom: 0.5rem;
         }
 
-        .footer-section ul {
+        .footer-column ul {
           list-style: none;
           padding: 0;
           margin: 0;
         }
 
-        .footer-section li {
-          margin-bottom: 12px;
+        .footer-column li {
+          margin-bottom: 0.5rem;
         }
 
-        .footer-section a {
+        .footer-column a {
           color: #ccc;
           text-decoration: none;
-          font-size: 0.9rem;
           transition: color 0.3s ease;
         }
 
-        .footer-section a:hover {
+        .footer-column a:hover {
           color: #e52421;
         }
 
-        @media (max-width: 768px) {
-          .timeline-line {
-            left: 30px;
-          }
+        .footer-bottom {
+          border-top: 1px solid #333;
+          margin-top: 2rem;
+          padding-top: 1rem;
+          text-align: center;
+          color: #666;
+        }
 
-          .timeline-event {
-            justify-content: flex-start !important;
-          }
+        /* Replaced card grid styles with two-column sticky layout styles */
+        /* Updated main layout to use precise CSS Grid with 40% left column */
+        .product-showcase-two-column {
+          display: grid;
+          grid-template-columns: 40% 1fr;
+          gap: 50px;
+          align-items: start;
+          margin-top: 4rem;
+        }
 
-          .timeline-content {
-            width: calc(100% - 80px);
-            margin-left: 60px !important;
-            margin-right: 0 !important;
-          }
+        /* Applied sticky positioning with specific height and top offset */
+        .product-images-sticky {
+          position: sticky;
+          top: 120px;
+          height: 60vh;
+        }
 
-          .timeline-year {
-            left: 30px;
-            transform: translateX(-50%);
-          }
+        /* Set relative positioning for image stack container */
+        .product-image-stack {
+          position: relative;
+          border: 3px solid #FFC107;
+          border-radius: 24px;
+          overflow: hidden;
+          background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,20,0.9) 100%);
+          box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 193, 7, 0.2);
+          width: 100%;
+          height: 100%;
+        }
 
-          .footer-container {
+        /* Applied absolute positioning for perfect image stacking */
+        .product-large-image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.4s ease-in-out;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 2rem;
+        }
+
+        /* Active state with opacity and visibility for smooth fade */
+        .product-large-image.active {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        /* Object-fit contain for proper image scaling */
+        .product-large-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          border-radius: 16px;
+        }
+
+        /* Flexbox layout for right column content */
+        .product-content-scrollable {
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+        }
+
+        .product-switcher-horizontal {
+          display: flex;
+          gap: 1.5rem;
+          padding: 1rem 0;
+        }
+
+        /* Inactive switcher buttons with reduced opacity */
+        .switcher-thumbnail {
+          border: 2px solid transparent;
+          border-radius: 16px;
+          padding: 0.75rem;
+          background: rgba(255, 255, 255, 0.05);
+          cursor: pointer;
+          transition: all 0.4s ease;
+          backdrop-filter: blur(10px);
+          opacity: 0.6;
+        }
+
+        .switcher-thumbnail:hover {
+          border-color: #FFC107;
+          transform: translateY(-4px);
+          box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3);
+          opacity: 0.8;
+        }
+
+        /* Active switcher with prominent red border and full opacity */
+        .switcher-thumbnail.active {
+          border: 2px solid #C20000;
+          opacity: 1;
+          background: rgba(194, 0, 0, 0.1);
+          box-shadow: 0 8px 25px rgba(194, 0, 0, 0.4);
+          transform: translateY(-2px);
+        }
+
+        .switcher-thumbnail img {
+          width: 80px;
+          height: 80px;
+          object-fit: contain;
+          border-radius: 12px;
+          transition: transform 0.3s ease;
+        }
+
+        .product-details-stack {
+          position: relative;
+          min-height: 400px;
+        }
+
+        /* Hidden product details with opacity and visibility */
+        .product-detail-block {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(30px);
+          transition: opacity 0.4s ease-in-out;
+          padding: 2.5rem;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 20px;
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Active product details with full visibility and smooth fade */
+        .product-detail-block.active {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+          position: relative;
+        }
+
+        .product-tag {
+          display: inline-block;
+          padding: 0.6rem 1.2rem;
+          border-radius: 25px;
+          font-size: 0.9rem;
+          font-weight: bold;
+          color: white;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 1.5rem;
+        }
+
+        .product-tag.traditional {
+          background: linear-gradient(135deg, #e52421 0%, #c41e3a 100%);
+          box-shadow: 0 4px 15px rgba(229, 36, 33, 0.4);
+        }
+
+        .product-tag.unique {
+          background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+          box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .product-tag.spicy {
+          background: linear-gradient(135deg, #ff4757 0%, #ff3838 100%);
+          box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+        }
+
+        .product-detail-title {
+          font-size: 2.5rem;
+          font-weight: 800;
+          color: white;
+          margin-bottom: 1.5rem;
+          line-height: 1.2;
+          text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .product-detail-description {
+          font-size: 1.2rem;
+          line-height: 1.7;
+          color: #e0e0e0;
+          margin-bottom: 2.5rem;
+        }
+
+        .product-cta-button {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.75rem;
+          background: linear-gradient(135deg, #C20000 0%, #a01818 100%);
+          color: white;
+          padding: 16px 32px;
+          border-radius: 12px;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 1.1rem;
+          transition: all 0.3s ease;
+          border: none;
+          cursor: pointer;
+          min-height: 50px;
+          box-shadow: 0 4px 15px rgba(194, 0, 0, 0.3);
+        }
+
+        .product-cta-button:hover {
+          background: linear-gradient(135deg, #d42c2c 0%, #b01f1f 100%);
+          transform: translateY(-3px);
+          box-shadow: 0 8px 25px rgba(194, 0, 0, 0.4);
+        }
+
+        .product-cta-button:active {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 15px rgba(194, 0, 0, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+          .product-showcase-two-column {
             grid-template-columns: 1fr;
-            gap: 30px;
+            gap: 3rem;
           }
-
-          .footer-brand {
-            padding-right: 0;
+          
+          .product-images-sticky {
+            position: relative;
+            top: auto;
           }
-
-          .newsletter-form {
-            flex-direction: column;
-            border-radius: 15px;
+          
+          .product-switcher-horizontal {
+            justify-content: center;
           }
+        }
 
-          .newsletter-input,
-          .newsletter-submit {
-            border-radius: 0;
+        @media (max-width: 768px) {
+          .switcher-thumbnail img {
+            width: 60px;
+            height: 60px;
           }
-
-          .newsletter-submit {
-            border-radius: 0 0 15px 15px;
+          
+          .product-detail-title {
+            font-size: 2rem;
           }
-
-          .newsletter-input {
-            border-radius: 15px 15px 0 0;
+          
+          .product-detail-description {
+            font-size: 1rem;
           }
         }
       `}</style>
