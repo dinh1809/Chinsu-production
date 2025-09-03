@@ -4,8 +4,9 @@ import { useEffect, useState } from "react"
 import { SparklesText } from "@/components/ui/sparkles-text"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 
-export default function HomePage() {
-  const [activeProductId, setActiveProductId] = useState(1)
+export default function Home() {
+  const [activeProduct, setActiveProduct] = useState(1)
+  const [activeFilter, setActiveFilter] = useState("all")
 
   useEffect(() => {
     const initializeNavbar = () => {
@@ -128,42 +129,6 @@ export default function HomePage() {
             console.error("[v0] Product switcher initialization error:", error)
           }
         }, 1000)
-
-        // --- Resource Filter Logic ---
-        const filterBtns = document.querySelectorAll(".filter-btn")
-        const resourceItems = document.querySelectorAll(".resource-item")
-
-        if (filterBtns.length > 0 && resourceItems.length > 0) {
-          filterBtns.forEach((btn) => {
-            btn.addEventListener("click", () => {
-              try {
-                const filter = btn.getAttribute("data-filter")
-                if (!filter) return
-
-                // Remove active class from all filter buttons
-                filterBtns.forEach((b) => b.classList.remove("active"))
-                btn.classList.add("active")
-
-                // Show/hide items based on filter
-                resourceItems.forEach((item) => {
-                  if (filter === "all" || item.getAttribute("data-type") === filter) {
-                    item.style.display = "block"
-                  } else {
-                    item.style.display = "none"
-                  }
-                })
-              } catch (error) {
-                console.error("Resource filter error:", error)
-              }
-            })
-          })
-
-          // Set "all" filter as active by default
-          const allBtn = document.querySelector('.filter-btn[data-filter="all"]')
-          if (allBtn) {
-            allBtn.classList.add("active")
-          }
-        }
       } catch (error) {
         console.error("Navbar initialization error:", error)
       }
@@ -276,19 +241,19 @@ export default function HomePage() {
               {/* Left Column - Sticky Images */}
               <div className="product-images-sticky">
                 <div className="product-image-stack">
-                  <div className={`product-large-image ${activeProductId === 1 ? "active" : ""}`} data-id="1">
+                  <div className={`product-large-image ${activeProduct === 1 ? "active" : ""}`} data-id="1">
                     <img
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/thumb-cate-nuoc-tuong-hover-b2I3cyJKcjZ47Skx7p3zgFbJSWKIUs.png"
                       alt="Nước Tương CHIN-SU"
                     />
                   </div>
-                  <div className={`product-large-image ${activeProductId === 2 ? "active" : ""}`} data-id="2">
+                  <div className={`product-large-image ${activeProduct === 2 ? "active" : ""}`} data-id="2">
                     <img
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/thumb-cate-nuoc-mam-hover-z1wRObLHzQdMziPd6qUzr0awnabk9l.png"
                       alt="Nước Mắm CHIN-SU"
                     />
                   </div>
-                  <div className={`product-large-image ${activeProductId === 3 ? "active" : ""}`} data-id="3">
+                  <div className={`product-large-image ${activeProduct === 3 ? "active" : ""}`} data-id="3">
                     <img
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/thumb-cate-tuong-ot-hover-ZqFKZWrJCbA35r5cl4oL4E9b4NG8uL.png"
                       alt="Tương Ớt CHIN-SU"
@@ -302,8 +267,8 @@ export default function HomePage() {
                 {/* Product Switcher */}
                 <div className="product-switcher-horizontal">
                   <button
-                    className={`switcher-thumbnail ${activeProductId === 1 ? "active" : ""}`}
-                    onClick={() => setActiveProductId(1)}
+                    className={`switcher-thumbnail ${activeProduct === 1 ? "active" : ""}`}
+                    onClick={() => setActiveProduct(1)}
                     data-id="1"
                   >
                     <img
@@ -312,8 +277,8 @@ export default function HomePage() {
                     />
                   </button>
                   <button
-                    className={`switcher-thumbnail ${activeProductId === 2 ? "active" : ""}`}
-                    onClick={() => setActiveProductId(2)}
+                    className={`switcher-thumbnail ${activeProduct === 2 ? "active" : ""}`}
+                    onClick={() => setActiveProduct(2)}
                     data-id="2"
                   >
                     <img
@@ -322,8 +287,8 @@ export default function HomePage() {
                     />
                   </button>
                   <button
-                    className={`switcher-thumbnail ${activeProductId === 3 ? "active" : ""}`}
-                    onClick={() => setActiveProductId(3)}
+                    className={`switcher-thumbnail ${activeProduct === 3 ? "active" : ""}`}
+                    onClick={() => setActiveProduct(3)}
                     data-id="3"
                   >
                     <img
@@ -336,7 +301,7 @@ export default function HomePage() {
                 {/* Product Details Stack */}
                 <div className="product-details-stack">
                   {/* Nước Tương Details */}
-                  <div className={`product-detail-block ${activeProductId === 1 ? "active" : ""}`} data-id="1">
+                  <div className={`product-detail-block ${activeProduct === 1 ? "active" : ""}`} data-id="1">
                     <span className="product-tag traditional">Truyền Thống</span>
                     <h3 className="product-detail-title">Nước Tương Đậm Đà</h3>
                     <p className="product-detail-description">
@@ -358,7 +323,7 @@ export default function HomePage() {
                   </div>
 
                   {/* Nước Mắm Details */}
-                  <div className={`product-detail-block ${activeProductId === 2 ? "active" : ""}`} data-id="2">
+                  <div className={`product-detail-block ${activeProduct === 2 ? "active" : ""}`} data-id="2">
                     <span className="product-tag unique">Độc Đáo</span>
                     <h3 className="product-detail-title">Nước Mắm Cá Cơm</h3>
                     <p className="product-detail-description">
@@ -380,7 +345,7 @@ export default function HomePage() {
                   </div>
 
                   {/* Tương Ớt Details */}
-                  <div className={`product-detail-block ${activeProductId === 3 ? "active" : ""}`} data-id="3">
+                  <div className={`product-detail-block ${activeProduct === 3 ? "active" : ""}`} data-id="3">
                     <span className="product-tag spicy">Thanh Ngọt</span>
                     <h3 className="product-detail-title">Tương Ớt Cay Nồng</h3>
                     <p className="product-detail-description">
@@ -406,282 +371,293 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Resources Section */}
         <section id="resources" className="section-padding">
           <div className="container">
-            <div className="resources-hero">
-              <SparklesText
-                className="section-title text-justify font-sans"
-                style={{
-                  color: "white",
-                  fontSize: "3.5rem",
-                  fontWeight: "900",
-                  textAlign: "center",
-                  marginBottom: "1rem",
-                  textShadow: "0 4px 8px rgba(0,0,0,0.8), 0 0 30px rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.9)",
-                  position: "relative",
-                  zIndex: 10,
-                  letterSpacing: "0.02em",
-                }}
-              >
-                Kho Tàng Ẩm Thực
-              </SparklesText>
+            <SparklesText
+              className="section-title text-justify font-sans"
+              style={{
+                fontSize: "clamp(2rem, 5vw, 3.5rem)",
+                fontWeight: "bold",
+                color: "white",
+                textShadow: "2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.3)",
+                letterSpacing: "2px",
+                fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+                fontFeatureSettings: '"liga" 1, "kern" 1',
+                WebkitFontSmoothing: "antialiased",
+                textRendering: "optimizeLegibility",
+              }}
+            >
+              Kho Tàng Ẩm Thực
+            </SparklesText>
+            <p className="section-subtitle">
+              Khám phá thế giới công thức, mẹo vặt và cảm hứng nấu nướng từ cộng đồng ChinSu
+            </p>
 
-              <p
-                className="resources-subtitle"
-                style={{
-                  color: "#e0e0e0",
-                  fontSize: "1.3rem",
-                  fontWeight: "400",
-                  textAlign: "center",
-                }}
-              >
-                Khám phá thế giới công thức, mẹo vặt và cảm hứng nấu nướng từ cộng đồng ChinSu
-              </p>
-            </div>
-
-            {/* Enhanced filter button styling for better clickability and visual feedback */}
             <div className="resources-filter">
-              <button className="filter-btn active" data-filter="all">
+              <button
+                className={`filter-btn ${activeFilter === "all" ? "active" : ""}`}
+                onClick={() => setActiveFilter("all")}
+              >
                 Tất Cả
               </button>
-              <button className="filter-btn" data-filter="blog">
+              <button
+                className={`filter-btn ${activeFilter === "blog" ? "active" : ""}`}
+                onClick={() => setActiveFilter("blog")}
+              >
                 Bài Viết
               </button>
-              <button className="filter-btn" data-filter="video">
+              <button
+                className={`filter-btn ${activeFilter === "video" ? "active" : ""}`}
+                onClick={() => setActiveFilter("video")}
+              >
                 Video
               </button>
-              <button className="filter-btn" data-filter="podcast">
+              <button
+                className={`filter-btn ${activeFilter === "podcast" ? "active" : ""}`}
+                onClick={() => setActiveFilter("podcast")}
+              >
                 Podcast
               </button>
-              <button className="filter-btn" data-filter="tips">
+              <button
+                className={`filter-btn ${activeFilter === "tips" ? "active" : ""}`}
+                onClick={() => setActiveFilter("tips")}
+              >
                 Mẹo Vặt
               </button>
             </div>
 
             <div className="resources-grid">
-              {/* Blog Posts */}
-              <article className="resource-item blog-card" data-type="blog">
-                <div className="card-image">
-                  <img
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/imgi_38_banner-quy-trinh-desktop-Dm5ST1QU2rV874dsya6RJU7ZnyYfGD.png"
-                    alt="Traditional fish sauce production process"
-                  />
-                  <div className="card-overlay">
-                    <span className="card-category">Bài Viết</span>
+              {(activeFilter === "all" || activeFilter === "blog") && (
+                <article className="resource-item blog-card">
+                  <div className="card-image">
+                    <img
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/imgi_38_banner-quy-trinh-desktop-Dm5ST1QU2rV874dsya6RJU7ZnyYfGD.png"
+                      alt="Traditional fish sauce production process"
+                    />
+                    <div className="card-overlay">
+                      <span className="card-category">Bài Viết</span>
+                    </div>
                   </div>
-                </div>
-                <div className="card-content">
-                  <h3>Khám phá Umami Việt Nam</h3>
-                  <p>
-                    Umami là một trong năm vị cơ bản mà con người có thể cảm nhận được bên cạnh ngọt, mặn, chua và đắng.
-                    Trong tiếng Nhật, "umai" có nghĩa là "ngon", "mi" là "vị", còn trong tiếng Việt, có thể hiểu vị
-                    umami là vị ngon hài hoà và cân bằng mặn ngọt. Hãy cùng Chin-su tìm hiểu sâu hơn về hương vị kỳ diệu
-                    này nhé.
-                  </p>
-                  <div className="card-meta">
-                    <span className="read-time">6 phút đọc</span>
-                    <span className="publish-date">15/01/2025</span>
+                  <div className="card-content">
+                    <h3>Khám phá Umami Việt Nam</h3>
+                    <p>
+                      Umami là một trong năm vị cơ bản mà con người có thể cảm nhận được bên cạnh ngọt, mặn, chua và
+                      đắng. Trong tiếng Nhật, "umai" có nghĩa là "ngon", "mi" là "vị", còn trong tiếng Việt, có thể hiểu
+                      vị umami là vị ngon hài hoà và cân bằng mặn ngọt. Hãy cùng Chin-su tìm hiểu sâu hơn về hương vị kỳ
+                      diệu này nhé.
+                    </p>
+                    <div className="card-meta">
+                      <span className="read-time">6 phút đọc</span>
+                      <span className="publish-date">15/01/2025</span>
+                    </div>
+                    <a
+                      href="https://chinsu.vercel.app/blog/kham-pha-umami"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="read-more-btn"
+                    >
+                      Xem thêm
+                    </a>
                   </div>
-                  <a
-                    href="https://chinsu.vercel.app/blog/kham-pha-umami"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="read-more-btn"
-                  >
-                    Xem thêm
-                  </a>
-                </div>
-              </article>
+                </article>
+              )}
 
-              <article className="resource-item blog-card" data-type="blog">
-                <div className="card-image">
-                  <img
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/imgi_18_cach-lam-ba-roi-chien-nuoc-mam-2.jpg-J1nMKWDXGarNO6z3mhH5YByAx712JZ.jpeg"
-                    alt="Vietnamese pork belly glazed with fish sauce"
-                  />
-                  <div className="card-overlay">
-                    <span className="card-category">Bài Viết</span>
+              {(activeFilter === "all" || activeFilter === "blog") && (
+                <article className="resource-item blog-card">
+                  <div className="card-image">
+                    <img
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/imgi_18_cach-lam-ba-roi-chien-nuoc-mam-2.jpg-J1nMKWDXGarNO6z3mhH5YByAx712JZ.jpeg"
+                      alt="Vietnamese pork belly glazed with fish sauce"
+                    />
+                    <div className="card-overlay">
+                      <span className="card-category">Bài Viết</span>
+                    </div>
                   </div>
-                </div>
-                <div className="card-content">
-                  <h3>Nước Mắm - Linh Hồn Ẩm Thực Việt</h3>
-                  <p>
-                    Trong mỗi bữa cơm của gia đình người Việt, nước mắm luôn hiện diện như một loại gia vị làm trọn vẹn
-                    các món ăn; và sự ra đời của nước mắm Chin-su Cá Cơm Biển Đông chính là một bước đột phá mang đến
-                    hương vị đậm đà và chất lượng tuyệt đối. Hãy khám phá ngay quy trình tỉ mẩn để sản xuất nước mắm
-                    ngon cùng Chin-su nhé!
-                  </p>
-                  <div className="card-meta">
-                    <span className="read-time">8 phút đọc</span>
-                    <span className="publish-date">20/01/2025</span>
+                  <div className="card-content">
+                    <h3>Nước Mắm - Linh Hồn Ẩm Thực Việt</h3>
+                    <p>
+                      Trong mỗi bữa cơm của gia đình người Việt, nước mắm luôn hiện diện như một loại gia vị làm trọn
+                      vẹn các món ăn; và sự ra đời của nước mắm Chin-su Cá Cơm Biển Đông chính là một bước đột phá mang
+                      đến hương vị đậm đà và chất lượng tuyệt đối. Hãy khám phá ngay quy trình tỉ mẩn để sản xuất nước
+                      mắm ngon cùng Chin-su nhé!
+                    </p>
+                    <div className="card-meta">
+                      <span className="read-time">8 phút đọc</span>
+                      <span className="publish-date">20/01/2025</span>
+                    </div>
+                    <a
+                      href="https://chinsu.vercel.app/blog/bien_dong"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="read-more-btn"
+                    >
+                      Đọc thêm
+                    </a>
                   </div>
-                  <a
-                    href="https://chinsu.vercel.app/blog/bien_dong"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="read-more-btn"
-                  >
-                    Đọc thêm
-                  </a>
-                </div>
-              </article>
+                </article>
+              )}
 
-              {/* Video Content */}
-              {/* Ensure video cards have proper loading states */}
-              <article className="resource-item video-card" data-type="video">
-                {/* Enhanced video wrapper styling for better thumbnail loading */}
-                <div className="video-wrapper">
-                  <iframe
-                    width="100%"
-                    height="225"
-                    src="https://www.youtube.com/embed/ix96tIyQPpk?si=3ysIvkq044TkQYgG"
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-                <div className="card-content">
-                  <h3>Cách Làm Chả Cá Thăng Long Chuẩn Vị</h3>
-                  <p>Hướng dẫn chi tiết cách làm món chả cá Thăng Long với nước mắm ChinSu...</p>
-                  <div className="card-meta">
-                    <span className="views">125K lượt xem</span>
-                    <span className="channel">@ChinSuOfficial</span>
+              {(activeFilter === "all" || activeFilter === "video") && (
+                <article className="resource-item video-card">
+                  {/* Enhanced video wrapper styling for better thumbnail loading */}
+                  <div className="video-wrapper">
+                    <iframe
+                      width="100%"
+                      height="225"
+                      src="https://www.youtube.com/embed/ix96tIyQPpk?si=3ysIvkq044TkQYgG"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    ></iframe>
                   </div>
-                </div>
-              </article>
+                  <div className="card-content">
+                    <h3>Cách Làm Chả Cá Thăng Long Chuẩn Vị</h3>
+                    <p>Hướng dẫn chi tiết cách làm món chả cá Thăng Long với nước mắm ChinSu...</p>
+                    <div className="card-meta">
+                      <span className="views">125K lượt xem</span>
+                      <span className="channel">@ChinSuOfficial</span>
+                    </div>
+                  </div>
+                </article>
+              )}
 
-              <article className="resource-item video-card" data-type="video">
-                <div className="video-wrapper">
-                  <iframe
-                    width="100%"
-                    height="225"
-                    src="https://www.youtube.com/embed/vtC--aKtqsg?si=5dBc53GPHVtL5U8A"
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-                <div className="card-content">
-                  <h3>Phở Bò Truyền Thống - Bí Quyết Nước Dùng</h3>
-                  <p>Học cách nấu nước dùng phở trong suốt, thơm ngon với gia vị ChinSu...</p>
-                  <div className="card-meta">
-                    <span className="views">89K lượt xem</span>
-                    <span className="channel">@ChinSuOfficial</span>
+              {(activeFilter === "all" || activeFilter === "video") && (
+                <article className="resource-item video-card">
+                  <div className="video-wrapper">
+                    <iframe
+                      width="100%"
+                      height="225"
+                      src="https://www.youtube.com/embed/vtC--aKtqsg?si=5dBc53GPHVtL5U8A"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    ></iframe>
                   </div>
-                </div>
-              </article>
+                  <div className="card-content">
+                    <h3>Phở Bò Truyền Thống - Bí Quyết Nước Dùng</h3>
+                    <p>Học cách nấu nước dùng phở trong suốt, thơm ngon với gia vị ChinSu...</p>
+                    <div className="card-meta">
+                      <span className="views">89K lượt xem</span>
+                      <span className="channel">@ChinSuOfficial</span>
+                    </div>
+                  </div>
+                </article>
+              )}
 
-              {/* Podcast Video */}
-              <article className="resource-item podcast-card" data-type="podcast">
-                <div className="podcast-video-wrapper">
-                  <iframe
-                    width="100%"
-                    height="315"
-                    src="https://www.youtube.com/embed/v3KruA0fBR4?si=e1t2GG66GV81mU4-"
-                    title="ChinSu Podcast"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-                <div className="card-content">
-                  <h3>ChinSu Podcast - "Soi" chiến dịch Go Global của nhà ChinSu</h3>
-                  <p>
-                    Khám phá những câu chuyện thú vị về gia vị Việt Nam và hành trình phát triển của thương hiệu
-                    ChinSu...
-                  </p>
-                  <div className="podcast-meta">
-                    <span className="podcast-duration">{"🎧 3 phút"}</span>
-                    <span className="podcast-views">👁️ 12 lượt xem</span>
+              {(activeFilter === "all" || activeFilter === "podcast") && (
+                <article className="resource-item podcast-card">
+                  <div className="podcast-video-wrapper">
+                    <iframe
+                      width="100%"
+                      height="315"
+                      src="https://www.youtube.com/embed/v3KruA0fBR4?si=e1t2GG66GV81mU4-"
+                      title="ChinSu Podcast"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    ></iframe>
                   </div>
-                </div>
-              </article>
+                  <div className="card-content">
+                    <h3>ChinSu Podcast - "Soi" chiến dịch Go Global của nhà ChinSu</h3>
+                    <p>
+                      Khám phá những câu chuyện thú vị về gia vị Việt Nam và hành trình phát triển của thương hiệu
+                      ChinSu...
+                    </p>
+                    <div className="podcast-meta">
+                      <span className="podcast-duration">{"🎧 3 phút"}</span>
+                      <span className="podcast-views">👁️ 12 lượt xem</span>
+                    </div>
+                  </div>
+                </article>
+              )}
 
-              <article className="resource-item podcast-card" data-type="podcast">
-                <div className="podcast-video-wrapper">
-                  <iframe
-                    width="100%"
-                    height="315"
-                    src="https://www.youtube.com/embed/nGDFVAKWI28?si=7rMdYTwrxzuh1_SH"
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-                <div className="card-content">
-                  <h3>Câu Chuyện Thương Hiệu ChinSu: Nghe Ngay Kẻo Lỡ (Podcast #2)</h3>
-                  <p>
-                    🎙️ Podcast #2: Hành Trình Thương Hiệu ChinSu – Khám phá bí mật đằng sau sự thành công của một trong
-                    những thương hiệu gia vị nổi tiếng nhất Việt Nam. Từ những ngày đầu xây dựng đến hành trình trở
-                    thành cái tên quen thuộc trong bữa cơm gia đình, ChinSu đã làm gì để chạm đến trái tim hàng triệu
-                    người tiêu dùng?
-                  </p>
-                  <div className="podcast-meta">
-                    <span className="podcast-duration">{"🎧 Podcast #2"}</span>
-                    <span className="podcast-views">👁️ Mới phát hành</span>
+              {(activeFilter === "all" || activeFilter === "podcast") && (
+                <article className="resource-item podcast-card">
+                  <div className="podcast-video-wrapper">
+                    <iframe
+                      width="100%"
+                      height="315"
+                      src="https://www.youtube.com/embed/nGDFVAKWI28?si=7rMdYTwrxzuh1_SH"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    ></iframe>
                   </div>
-                </div>
-              </article>
+                  <div className="card-content">
+                    <h3>Câu Chuyện Thương Hiệu ChinSu: Nghe Ngay Kẻo Lỡ (Podcast #2)</h3>
+                    <p>
+                      🎙️ Podcast #2: Hành Trình Thương Hiệu ChinSu – Khám phá bí mật đằng sau sự thành công của một trong
+                      những thương hiệu gia vị nổi tiếng nhất Việt Nam. Từ những ngày đầu xây dựng đến hành trình trở
+                      thành cái tên quen thuộc trong bữa cơm gia đình, ChinSu đã làm gì để chạm đến trái tim hàng triệu
+                      người tiêu dùng?
+                    </p>
+                    <div className="podcast-meta">
+                      <span className="podcast-duration">{"🎧 Podcast #2"}</span>
+                      <span className="podcast-views">👁️ Mới phát hành</span>
+                    </div>
+                  </div>
+                </article>
+              )}
 
-              {/* Updated card to TIN TỨC NGÀNH GIA VỊ */}
-              <article
-                className="resource-item tips-card"
-                data-type="tips"
-                onClick={() => window.open("https://giavichinsu.com/tin-tuc", "_blank")}
-                style={{ cursor: "pointer" }}
-              >
-                <div className="tips-icon">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                    <path d="M13 10V3L4 14h7v7l9-11h-7z" fill="currentColor" />
-                  </svg>
-                </div>
-                <div className="card-content">
-                  <h3>TIN TỨC NGÀNH GIA VỊ</h3>
-                  <p>
-                    Chuyên mục Tin tức của Gia Vị CHIN-SU cập nhật thông tin mới nhất về thị trường gia vị Việt, giúp
-                    người dùng tự tin lựa chọn và sử dụng các loại gia vị thơm ngon, an toàn cho bữa ăn gia đình trọn
-                    vẹn dưỡng chất.
-                  </p>
-                  <div className="tips-meta">
-                    <span className="tip-type">{"Tin Tức\n"} </span>
-                    <span className="usefulness">Xem thêm →</span>
+              {(activeFilter === "all" || activeFilter === "tips") && (
+                <article
+                  className="resource-item tips-card"
+                  onClick={() => window.open("https://giavichinsu.com/tin-tuc", "_blank")}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="tips-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                      <path d="M13 10V3L4 14h7v7l9-11h-7z" fill="currentColor" />
+                    </svg>
                   </div>
-                </div>
-              </article>
+                  <div className="card-content">
+                    <h3>TIN TỨC NGÀNH GIA VỊ</h3>
+                    <p>
+                      Chuyên mục Tin tức của Gia Vị CHIN-SU cập nhật thông tin mới nhất về thị trường gia vị Việt, giúp
+                      người dùng tự tin lựa chọn và sử dụng các loại gia vị thơm ngon, an toàn cho bữa ăn gia đình trọn
+                      vẹn dưỡng chất.
+                    </p>
+                    <div className="tips-meta">
+                      <span className="tip-type">{"Tin Tức\n"} </span>
+                      <span className="usefulness">Xem thêm →</span>
+                    </div>
+                  </div>
+                </article>
+              )}
 
-              <article
-                className="resource-item tips-card"
-                data-type="tips"
-                onClick={() => window.open("https://giavichinsu.com/tin-tuc-nuoc-mam", "_blank")}
-                style={{ cursor: "pointer" }}
-              >
-                <div className="tips-icon">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                    <path d="M13 10V3L4 14h7v7l9-11h-7z" fill="currentColor" />
-                  </svg>
-                </div>
-                <div className="card-content">
-                  <h3>TIN TỨC NƯỚC MẮM</h3>
-                  <p>
-                    Cùng tìm hiểu nước mắm là gì, thành phần nước mắm an toàn, cách phân biệt nước mắm thật – giả cũng
-                    như bí quyết lựa chọn nước mắm thơm ngon, bảo vệ sức khỏe cả nhà.
-                  </p>
-                  <div className="tips-meta">
-                    <span className="tip-type">Tin Tức</span>
-                    <span className="usefulness">Xem thêm →</span>
+              {(activeFilter === "all" || activeFilter === "tips") && (
+                <article
+                  className="resource-item tips-card"
+                  onClick={() => window.open("https://giavichinsu.com/tin-tuc-nuoc-mam", "_blank")}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="tips-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                      <path d="M13 10V3L4 14h7v7l9-11h-7z" fill="currentColor" />
+                    </svg>
                   </div>
-                </div>
-              </article>
+                  <div className="card-content">
+                    <h3>TIN TỨC NƯỚC MẮM</h3>
+                    <p>
+                      Cùng tìm hiểu nước mắm là gì, thành phần nước mắm an toàn, cách phân biệt nước mắm thật – giả cũng
+                      như bí quyết lựa chọn nước mắm thơm ngon, bảo vệ sức khỏe cả nhà.
+                    </p>
+                    <div className="tips-meta">
+                      <span className="tip-type">Tin Tức</span>
+                      <span className="usefulness">Xem thêm →</span>
+                    </div>
+                  </div>
+                </article>
+              )}
             </div>
-
-            <div className="resources-cta"></div>
           </div>
         </section>
 
