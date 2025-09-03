@@ -678,28 +678,29 @@ export default function HomePage() {
               </article>
             </div>
 
-            <div className="resources-cta">
-              <button className="cta-button">
-                Xem Thêm Nội Dung
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M5 12h14m-7-7l7 7-7 7l9-11h-7z" stroke="currentColor" strokeWidth="2" />
-                </svg>
-              </button>
-            </div>
+            <div className="resources-cta"></div>
           </div>
         </section>
 
         <section className="newsletter-section">
           <div className="newsletter-container">
-            <h2 className="newsletter-title">SUBSCRIBE TO GET MORE INFO</h2>
+            <h2 className="newsletter-title">ĐĂNG KÝ NHẬN THÔNG TIN MỚI</h2>
             <p className="newsletter-description">
-              Want the latest and greatest recipes, updates, and more from us, straight to your inbox? Subscribe and get
-              our HOT NEWS!
+              Bạn muốn nhận những công thức nấu ăn mới nhất và tuyệt vời nhất, cập nhật và nhiều hơn nữa từ chúng tôi,
+              thẳng đến hộp thư đến của bạn? Đăng ký và nhận TIN TỨC NÓNG HỔI của chúng tôi!
             </p>
-            <div className="newsletter-form">
-              <input type="email" placeholder="Enter your email..." className="newsletter-input" />
-              <button className="newsletter-submit">SUBMIT</button>
-            </div>
+            <form className="newsletter-form" action="https://formspree.io/f/mldwpyll" method="POST">
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email..."
+                className="newsletter-input"
+                required
+              />
+              <button type="submit" className="newsletter-submit">
+                SUBMIT
+              </button>
+            </form>
           </div>
         </section>
       </main>
@@ -717,19 +718,19 @@ export default function HomePage() {
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                 </svg>
-                <span>CHIN-SU store system 1000+ Stores nationwide</span>
+                <span>Hệ thống cửa hàng CHIN-SU 1000+ cửa hàng trên toàn quốc</span>
               </div>
               <div className="contact-item">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                 </svg>
-                <span>Have a chat with us if you need help</span>
+                <span>Hãy trò chuyện với chúng tôi nếu bạn cần hỗ trợ</span>
               </div>
               <div className="contact-item">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.75-.24 1.02l-2.2 2.2z" />
                 </svg>
-                <span>Hotline: (206) 356-7092 or (425) 589-8788 or (833) 324-4678</span>
+                <span>Đường dây nóng: (206) 356-7092 hoặc (425) 589-8788 hoặc (833) 324-4678</span>
               </div>
               <div className="contact-item">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -742,7 +743,7 @@ export default function HomePage() {
 
           <div className="footer-columns">
             <div className="footer-column">
-              <h4>SOCIAL</h4>
+              <h4>MẠNG XÃ HỘI</h4>
               <ul>
                 <li>
                   <a
@@ -777,67 +778,64 @@ export default function HomePage() {
             </div>
 
             <div className="footer-column">
-              <h4>SHOP</h4>
+              <h4>SẢN PHẨM</h4>
               <ul>
                 <li>
-                  <a href="#products">ORIGINAL HOT SAUCE</a>
+                  <a href="#products">NƯỚC TƯƠNG CHIN-SU</a>
                 </li>
                 <li>
-                  <a href="#products">PHỞ HOT SAUCE</a>
+                  <a href="#products">NƯỚC MẮM CHIN-SU</a>
                 </li>
                 <li>
-                  <a href="#products">CHỈ THIÊN HOT SAUCE</a>
+                  <a href="#products">TƯƠNG ỚT CHIN-SU</a>
                 </li>
                 <li>
-                  <a href="#products">TRUFFLE HOT SAUCE</a>
+                  <a href="#products">GIA VỊ CHIN-SU</a>
                 </li>
               </ul>
             </div>
 
             <div className="footer-column">
-              <h4>EXPLORE</h4>
+              <h4>KHÁM PHÁ</h4>
               <ul>
                 <li>
-                  <a href="#resources">FIND A STORE</a>
+                  <a href="#resources">TÌM CỬA HÀNG</a>
                 </li>
                 <li>
-                  <a href="#resources">SUBSCRIPTIONS</a>
+                  <a href="#resources">ĐĂNG KÝ NHẬN TIN</a>
                 </li>
                 <li>
-                  <a href="#resources">REWARDS</a>
+                  <a href="#resources">CHƯƠNG TRÌNH KHUYẾN MÃI</a>
                 </li>
                 <li>
-                  <a href="#resources">CHIN-SU KITCHEN</a>
+                  <a href="#resources">BẾP CHIN-SU</a>
                 </li>
                 <li>
-                  <a href="#resources">THE SAUCE</a>
+                  <a href="#resources">CÔNG THỨC NẤU ĂN</a>
                 </li>
               </ul>
             </div>
 
             <div className="footer-column">
-              <h4>COMPANY</h4>
+              <h4>CÔNG TY</h4>
               <ul>
                 <li>
-                  <a href="#resources">CONTACT US</a>
+                  <a href="#resources">LIÊN HỆ</a>
                 </li>
                 <li>
-                  <a href="#resources">FAQS</a>
+                  <a href="#resources">CÂU HỎI THƯỜNG GẶP</a>
                 </li>
                 <li>
-                  <a href="#resources">RETURNS</a>
+                  <a href="#resources">CHÍNH SÁCH ĐỔI TRẢ</a>
                 </li>
                 <li>
-                  <a href="#resources">PRIVACY POLICY</a>
+                  <a href="#resources">CHÍNH SÁCH BẢO MẬT</a>
                 </li>
                 <li>
-                  <a href="#resources">ACCESSIBILITY</a>
+                  <a href="#resources">ĐIỀU KHOẢN SỬ DỤNG</a>
                 </li>
                 <li>
-                  <a href="#resources">CCPA</a>
-                </li>
-                <li>
-                  <a href="#resources">TERMS OF USE</a>
+                  <a href="#resources">VỀ CHÚNG TÔI</a>
                 </li>
               </ul>
             </div>
@@ -845,7 +843,7 @@ export default function HomePage() {
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; 2025 ChinSu. All rights reserved.</p>
+          <p>&copy; 2025 ChinSu. Tất cả quyền được bảo lưu.</p>
         </div>
       </footer>
 
@@ -1252,6 +1250,7 @@ export default function HomePage() {
           font-size: 1rem;
           outline: none;
           background: white;
+          color: black;
         }
 
         .newsletter-submit {
@@ -1274,6 +1273,7 @@ export default function HomePage() {
           background: #000;
           color: white;
           padding: 3rem 0 1rem;
+          font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
         }
 
         .footer-container {
@@ -1307,6 +1307,7 @@ export default function HomePage() {
           align-items: center;
           gap: 0.75rem;
           color: #ccc;
+          font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
         }
 
         .contact-item svg {
@@ -1327,6 +1328,7 @@ export default function HomePage() {
           margin-bottom: 1rem;
           border-bottom: 2px solid #e52421;
           padding-bottom: 0.5rem;
+          font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
         }
 
         .footer-column ul {
@@ -1343,6 +1345,7 @@ export default function HomePage() {
           color: #ccc;
           text-decoration: none;
           transition: color 0.3s ease;
+          font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
         }
 
         .footer-column a:hover {
@@ -1355,6 +1358,7 @@ export default function HomePage() {
           padding-top: 1rem;
           text-align: center;
           color: #666;
+          font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
         }
 
         /* Replaced card grid styles with two-column sticky layout styles */
