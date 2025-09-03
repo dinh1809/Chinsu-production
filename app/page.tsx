@@ -895,25 +895,39 @@ export default function HomePage() {
           transform: scale(1.05);
         }
 
-        /* Added dark mode styles */
+        /* Enhanced dark mode styles for better visibility */
         .dark {
-          --bg-color: #1a1a1a;
+          --bg-color: #0a0a0a;
           --text-color: #ffffff;
-          --card-bg: #2a2a2a;
+          --card-bg: #1a1a1a;
+          --border-color: rgba(255, 255, 255, 0.1);
         }
 
         .dark body {
-          background-color: var(--bg-color);
-          color: var(--text-color);
+          background-color: var(--bg-color) !important;
+          color: var(--text-color) !important;
         }
 
         .dark .section-padding {
-          background-color: var(--bg-color);
+          background-color: var(--bg-color) !important;
         }
 
         .dark .blog-card {
-          background-color: var(--card-bg);
-          border-color: rgba(255, 255, 255, 0.1);
+          background-color: var(--card-bg) !important;
+          border-color: var(--border-color) !important;
+          color: var(--text-color) !important;
+        }
+
+        .dark .product-showcase-container {
+          background-color: var(--bg-color) !important;
+        }
+
+        .dark .newsletter-section {
+          background-color: var(--card-bg) !important;
+        }
+
+        .dark .footer-section {
+          background-color: #000000 !important;
         }
 
         /* --- Hero Section --- */
