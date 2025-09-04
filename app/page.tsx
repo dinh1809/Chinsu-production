@@ -549,6 +549,31 @@ export default function Home() {
                 </article>
               )}
 
+              {(activeFilter === "all" || activeFilter === "video") && (
+                <article className="resource-item video-card">
+                  <div className="video-wrapper">
+                    <iframe
+                      width="100%"
+                      height="225"
+                      src="https://www.youtube.com/embed/Hu1glpMECLo?si=idIWx7HCTIXMhNBc"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                  <div className="card-content">
+                    <h3>Một Ngày 16h Thực Tập: Sinh Viên Marketing Sống Sao?</h3>
+                    <p>Khám phá cuộc sống thực tập sinh marketing tại ChinSu qua 16 giờ đầy thử thách...</p>
+                    <div className="card-meta">
+                      <span className="views">45K lượt xem</span>
+                      <span className="channel">@ChinSuOfficial</span>
+                    </div>
+                  </div>
+                </article>
+              )}
+
               {(activeFilter === "all" || activeFilter === "podcast") && (
                 <article className="resource-item podcast-card">
                   <div className="podcast-video-wrapper">
